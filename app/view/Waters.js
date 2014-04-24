@@ -5,7 +5,10 @@ Ext.define('PegelOnline.view.Waters', {
     requires : [ 'PegelOnline.store.Waters' ],
 
     config   : {
-        itemTpl : '{longname}',
-        store   : { type : 'waters' }
+        itemTpl          : '{longname}',
+        store            : { type : 'waters' },
+        grouped          : true,
+        indexBar         : true,
+        onItemDisclosure : true
     }
 });

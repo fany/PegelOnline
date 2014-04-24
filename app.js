@@ -17,8 +17,8 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: [
-        'Main'
+    controllers: [
+        'Waters'
     ],
 
     icon: {

@@ -6,6 +6,11 @@ Ext.define('PegelOnline.store.Waters', {
 
     config: {
         model: 'PegelOnline.model.Water',
+        grouper: {
+            groupFn: function (record) {
+                return record.get('longname')[0];
+            }
+        },
         data: [
             {
               shortname: "ALLER",
