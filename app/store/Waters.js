@@ -14,8 +14,8 @@ Ext.define('PegelOnline.store.Waters', {
         autoLoad: true,
         proxy: {
             type: 'ajax',
-            // url:  'http://www.pegelonline.wsv.de/webservices/rest-api/v2/waters.json',
-            url: '/tmp/waters.json',
+            url:  'http://www.pegelonline.wsv.de/webservices/rest-api/v2/waters.json',
+            useDefaultXhrHeader: false,
             reader: { type: 'json' }
         }
     }
