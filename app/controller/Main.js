@@ -40,18 +40,20 @@ Ext.define('PegelOnline.controller.Main', {
 
     onTapBack: function () {
         var back         = this.getBack(),
+            backAnim     = this.getAnims().back,
             main         = this.getMain(),
             measurements = this.getMeasurements(),
-            stations     = this.getStations();
+            stations     = this.getStations(),
+            titlebar     = main.down('toolbar');
         switch (main.getActiveItem()) {
           case stations:
-            main.animateActiveItem(this.getWaters(), this.getAnims().back);
-            main.down('toolbar').setTitle('Waters');
-            this.getBack().hide();
+            main.animateActiveItem(this.getWaters(), backAnim);
+            titlebar.setTitle('Waters');
+            back.hide();
             break;
           case measurements:
-            main.animateActiveItem(stations, this.getAnims().back);
-            main.down('toolbar').setTitle(back.getText());
+            main.animateActiveItem(stations, backAnim);
+            titlebar.setTitle(back.getText());
             back.setText('Waters');
             break;
         }
