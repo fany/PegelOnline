@@ -6,13 +6,7 @@ Ext.define('PegelOnline.store.Stations', {
     config: {
         storeId : 'stations',
         model   : 'PegelOnline.model.Station',
-
-        grouper: {
-            groupFn: function (record) {
-                return record.get('longname')[0];
-            }
-        },
-
+        sorters : 'km',
         proxy: {
             type                : 'ajax',
             useDefaultXhrHeader : false,

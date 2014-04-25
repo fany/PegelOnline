@@ -56,11 +56,8 @@ Ext.define('PegelOnline.controller.Main', {
         );
         stationsStore.load(function (records, successful) {
             if (successful) {
-                isLongList = records.length > 9;
-                // stations.setGrouped(isLongList); // Führt zu Fehlern.
-                stations.setIndexBar(isLongList);
+                main.animateActiveItem(stations, forwardAnim);
             }
-            main.animateActiveItem(stations, forwardAnim);
         });
 
         main.down('toolbar')
