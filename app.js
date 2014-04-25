@@ -11,15 +11,9 @@
 */
 
 Ext.application({
-    name: 'PegelOnline',
-
-    requires: [
-        'Ext.MessageBox'
-    ],
-
-    controllers: [
-        'Waters'
-    ],
+    name        : 'PegelOnline',
+    requires    : [ 'Ext.MessageBox' ],
+    controllers : [ 'Main' ],
 
     icon: {
         '57': 'resources/icons/Icon.png',

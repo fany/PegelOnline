@@ -1,11 +1,11 @@
-Ext.define('PegelOnline.store.Waters', {
-    alias    : 'store.waters',
+Ext.define('PegelOnline.store.Stations', {
+    alias    : 'store.stations',
     extend   : 'Ext.data.Store',
-    requires : [ 'PegelOnline.model.Water' ],
+    requires : [ 'PegelOnline.model.Station' ],
 
     config: {
-        model    : 'PegelOnline.model.Water',
-        autoLoad : true,
+        storeId : 'stations',
+        model   : 'PegelOnline.model.Station',
 
         grouper: {
             groupFn: function (record) {
@@ -15,10 +15,11 @@ Ext.define('PegelOnline.store.Waters', {
 
         proxy: {
             type                : 'ajax',
-            url                 : 'http://www.pegelonline.wsv.de' +
-                                  '/webservices/rest-api/v2/waters.json',
             useDefaultXhrHeader : false,
             reader              : { type: 'json' }
-        }
+        },
+
+        urlPrefix : 'http://www.pegelonline.wsv.de' +
+                    '/webservices/rest-api/v2/stations.json?waters='
     }
 });

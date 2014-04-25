@@ -2,25 +2,37 @@ Ext.define('PegelOnline.view.Main', {
     extend   : 'Ext.Container',
     xtype    : 'main',
 
-    requires : [ 'PegelOnline.view.Waters' ],
+    requires : [
+        'Ext.Toolbar',
+        'PegelOnline.view.Stations',
+        'PegelOnline.view.Waters'
+    ],
 
     config   : {
         fullscreen : true,
-        layout     : 'vbox',
+        layout     : 'card',
 
         items : [
             {
                 docked : 'top',
                 xtype  : 'toolbar',
-                title  : 'Waters'
+                title  : 'Waters',
+                items  : {
+                    id     : 'back',
+                    text   : 'Waters',
+                    ui     : 'back',
+                    hidden : true
+                }
             },
             {
-                xtype  : 'waters',
-                flex   : 1
+                xtype  : 'waters'
+            },
+            {
+                xtype  : 'stations'
             },
             {
                 docked : 'bottom',
-                xtype: 'toolbar',
+                xtype  : 'toolbar',
                 html   : '<small>This app uses data provided by <a href="' +
                          'http://www.pegelonline.wsv.de/webservice/" ' +
                          'style="color:inherit">PEGELONLINE WEBSERVICES</a>.' +
