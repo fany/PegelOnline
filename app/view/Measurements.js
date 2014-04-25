@@ -62,14 +62,20 @@ Ext.define('PegelOnline.view.Measurements', {
                             item.record.data.value +
                             '</strong>'
                         );
-                        console.log(panel);
                     }
                 },
 
                 panel: {
                     height : 150,
-                    width  : 400,
-                    style  : { 'text-align': 'center' }
+                    width  : 220,
+                    style  : { 'text-align': 'center' },
+                    items  : [
+                        {
+                            docked : 'top',
+                            xtype  : 'toolbar',
+                            title  : 'Water Level'
+                        }
+                    ]
                 }
             }
         ]
