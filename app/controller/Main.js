@@ -22,7 +22,7 @@ Ext.define('PegelOnline.controller.Main', {
             back     : '#back',
             main     : 'main',
             stations : 'stations',
-            waters   : 'waters',
+            waters   : 'waters'
         },
 
         control : {
@@ -45,18 +45,30 @@ Ext.define('PegelOnline.controller.Main', {
 
     onDisclose: function (list, record) {
         var main          = this.getMain(),
+            forwardAnim   = this.getAnims().forward,
+            stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
-            stationsProxy = stationsStore.getProxy();
+            stationsProxy = stationsStore.getProxy(),
+            isLongList;
+
         stationsProxy.setUrl(
             stationsStore.getUrlPrefix() + record.get('shortname')
         );
-        stationsStore.load();
-        main.animateActiveItem(this.getStations(), this.getAnims().forward);
+        stationsStore.load(function (records, successful) {
+            if (successful) {
+                isLongList = records.length > 9;
+                // stations.setGrouped(isLongList); // Führt zu Fehlern.
+                stations.setIndexBar(isLongList);
+            }
+            main.animateActiveItem(stations, forwardAnim);
+        });
+
         main.down('toolbar')
             .setTitle(
                 'Stations for water ' +
                 Ext.util.Format.htmlEncode(record.get('longname'))
             );
+
         this.getBack().show();
     }
 });

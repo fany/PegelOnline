@@ -8,7 +8,6 @@ Ext.define('PegelOnline.view.Stations', {
         itemTpl          : '{longname}',
         store            : { type : 'stations' },
         grouped          : true,
-        indexBar         : true,
         onItemDisclosure : true
     }
 });
