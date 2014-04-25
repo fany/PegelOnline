@@ -64,8 +64,8 @@ Ext.define('PegelOnline.controller.Main', {
 
         main.down('toolbar')
             .setTitle(
-                'Stations for water ' +
-                Ext.util.Format.htmlEncode(record.get('longname'))
+                // 'Stations for water ' +
+                Ext.util.Format.htmlEncode(record.get('shortname'))
             );
 
         this.getBack().show();
@@ -91,10 +91,8 @@ Ext.define('PegelOnline.controller.Main', {
 
         main.down('toolbar')
             .setTitle(
-                'Measurements for ' +
-                Ext.util.Format.htmlEncode(
-                    record.get('longname')
-                )
+                // 'Measurements for ' +
+                Ext.util.Format.htmlEncode(record.get('shortname'))
             );
     }
 });
