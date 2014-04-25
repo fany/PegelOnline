@@ -4,6 +4,7 @@ Ext.define('PegelOnline.view.Main', {
 
     requires : [
         'Ext.Toolbar',
+        'PegelOnline.view.Measurements',
         'PegelOnline.view.Stations',
         'PegelOnline.view.Waters'
     ],
@@ -29,6 +30,9 @@ Ext.define('PegelOnline.view.Main', {
             },
             {
                 xtype  : 'stations'
+            },
+            {
+                xtype  : 'measurements'
             },
             {
                 docked : 'bottom',

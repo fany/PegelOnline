@@ -19,15 +19,17 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         refs: {
-            back     : '#back',
-            main     : 'main',
-            stations : 'stations',
-            waters   : 'waters'
+            back         : '#back',
+            main         : 'main',
+            measurements : 'measurements',
+            stations     : 'stations',
+            waters       : 'waters'
         },
 
         control : {
-            back   : { tap: 'onBackTap' },
-            waters : { disclose: 'onDisclose' },
+            back     : { tap: 'onBackTap' },
+            waters   : { disclose: 'onDiscloseWaters' },
+            stations : { disclose: 'onDiscloseStations' },
         },
 
         views : [
@@ -43,9 +45,9 @@ Ext.define('PegelOnline.controller.Main', {
         this.getBack().hide();
     },
 
-    onDisclose: function (list, record) {
-        var main          = this.getMain(),
-            forwardAnim   = this.getAnims().forward,
+    onDiscloseWaters: function (list, record) {
+        var forwardAnim   = this.getAnims().forward,
+            main          = this.getMain(),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
             stationsProxy = stationsStore.getProxy(),
@@ -67,5 +69,32 @@ Ext.define('PegelOnline.controller.Main', {
             );
 
         this.getBack().show();
+    },
+
+    onDiscloseStations: function (list, record) {
+        var forwardAnim       = this.getAnims().forward,
+            main              = this.getMain(),
+            measurements      = this.getMeasurements(),
+            measurementsStore = Ext.getStore('measurements'),
+            measurementsProxy = measurementsStore.getProxy();
+
+        measurementsProxy.setUrl(
+            measurementsStore.getUrlPrefix() +
+            record.get('uuid')               +
+            measurementsStore.getUrlSuffix()
+        );
+        measurementsStore.load(function (records, successful) {
+            if (successful) {
+                main.animateActiveItem(measurements, forwardAnim);
+            }
+        });
+
+        main.down('toolbar')
+            .setTitle(
+                'Measurements for ' +
+                Ext.util.Format.htmlEncode(
+                    record.get('longname')
+                )
+            );
     }
 });
