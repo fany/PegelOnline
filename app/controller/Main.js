@@ -27,7 +27,7 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         control : {
-            back     : { tap: 'onBackTap' },
+            back     : { tap: 'onTapBack' },
             waters   : { disclose: 'onDiscloseWaters' },
             stations : { disclose: 'onDiscloseStations' },
         },
@@ -38,11 +38,23 @@ Ext.define('PegelOnline.controller.Main', {
         ]
     },
 
-    onBackTap: function () {
-        var main = this.getMain();
-        main.animateActiveItem(this.getWaters(), this.getAnims().back);
-        main.down('toolbar').setTitle('Waters');
-        this.getBack().hide();
+    onTapBack: function () {
+        var back         = this.getBack(),
+            main         = this.getMain(),
+            measurements = this.getMeasurements(),
+            stations     = this.getStations();
+        switch (main.getActiveItem()) {
+          case stations:
+            main.animateActiveItem(this.getWaters(), this.getAnims().back);
+            main.down('toolbar').setTitle('Waters');
+            this.getBack().hide();
+            break;
+          case measurements:
+            main.animateActiveItem(stations, this.getAnims().back);
+            main.down('toolbar').setTitle(back.getText());
+            back.setText('Waters');
+            break;
+        }
     },
 
     onDiscloseWaters: function (list, record) {
@@ -63,20 +75,19 @@ Ext.define('PegelOnline.controller.Main', {
         });
 
         main.down('toolbar')
-            .setTitle(
-                // 'Stations for water ' +
-                Ext.util.Format.htmlEncode(record.get('shortname'))
-            );
+            .setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
 
         this.getBack().show();
     },
 
     onDiscloseStations: function (list, record) {
-        var forwardAnim       = this.getAnims().forward,
+        var control           = this.getControl(),
+            forwardAnim       = this.getAnims().forward,
             main              = this.getMain(),
             measurements      = this.getMeasurements(),
             measurementsStore = Ext.getStore('measurements'),
-            measurementsProxy = measurementsStore.getProxy();
+            measurementsProxy = measurementsStore.getProxy(),
+            titlebar          = main.down('toolbar');
 
         measurementsProxy.setUrl(
             measurementsStore.getUrlPrefix() +
@@ -89,10 +100,7 @@ Ext.define('PegelOnline.controller.Main', {
             }
         });
 
-        main.down('toolbar')
-            .setTitle(
-                // 'Measurements for ' +
-                Ext.util.Format.htmlEncode(record.get('shortname'))
-            );
+        this.getBack().setText(titlebar.getTitle().getHtml());
+        titlebar.setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
     }
 });
