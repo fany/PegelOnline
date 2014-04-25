@@ -21,9 +21,9 @@ Ext.define('PegelOnline.view.Main', {
             {
                 docked : 'bottom',
                 xtype: 'toolbar',
-                html   : '<small>Mit freundlicher Unterstützung von <a href="' +
+                html   : '<small>This app uses data provided by <a href="' +
                          'http://www.pegelonline.wsv.de/webservice/" ' +
-                         'style="color:inherit">PEGELONLINE WEBSERVICES</a>' +
+                         'style="color:inherit">PEGELONLINE WEBSERVICES</a>.' +
                          '</small>',
                 style  : {
                     'background-color': 'gray',
