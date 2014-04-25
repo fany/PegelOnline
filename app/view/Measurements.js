@@ -6,6 +6,8 @@ Ext.define('PegelOnline.view.Measurements', {
         'Ext.chart.series.Line',
         'Ext.chart.axis.Numeric',
         'Ext.chart.axis.Time',
+        'Ext.chart.interactions.ItemInfo',
+        'Ext.chart.interactions.PanZoom',
         'PegelOnline.store.Measurements'
     ],
 
@@ -42,9 +44,34 @@ Ext.define('PegelOnline.view.Measurements', {
                 }
             },
             {
-                type : 'time'
+                type         : 'time',
+                visibleRange : [0.9, 1]
+            }
+        ],
+
+        interactions: [
+            'panzoom',
+            {
+                type      : 'iteminfo',
+
+                listeners: {
+                    show: function (me, item, panel) {
+                        panel.setHtml(
+                            item.record.data.timestamp +
+                            ':<br><strong>' +
+                            item.record.data.value +
+                            '</strong>'
+                        );
+                        console.log(panel);
+                    }
+                },
+
+                panel: {
+                    height : 150,
+                    width  : 400,
+                    style  : { 'text-align': 'center' }
+                }
             }
         ]
-
     }
 });
