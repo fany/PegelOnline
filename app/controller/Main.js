@@ -64,8 +64,7 @@ Ext.define('PegelOnline.controller.Main', {
             main          = this.getMain(),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
-            stationsProxy = stationsStore.getProxy(),
-            isLongList;
+            stationsProxy = stationsStore.getProxy();
 
         stationsProxy.setUrl(
             stationsStore.getUrlPrefix() + record.get('shortname')
@@ -83,8 +82,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseStations: function (list, record) {
-        var control           = this.getControl(),
-            forwardAnim       = this.getAnims().forward,
+        var forwardAnim       = this.getAnims().forward,
             main              = this.getMain(),
             measurements      = this.getMeasurements(),
             measurementsStore = Ext.getStore('measurements'),
