@@ -18,7 +18,6 @@ Ext.define('PegelOnline.view.Main', {
                 docked : 'top',
                 xtype  : 'toolbar',
 
-
                 items: [
                     {
                         xtype  : 'title',
