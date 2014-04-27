@@ -1,1 +1,4 @@
+/archive/*
+/build/*
+/resources/sass/.sass-cache/*
 /tmp
