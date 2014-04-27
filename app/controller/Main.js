@@ -43,17 +43,17 @@ Ext.define('PegelOnline.controller.Main', {
             backAnim     = this.getAnims().back,
             main         = this.getMain(),
             measurements = this.getMeasurements(),
-            stations     = this.getStations(),
-            titlebar     = main.down('toolbar');
+            stations     = this.getStations();
+
         switch (main.getActiveItem()) {
           case stations:
             main.animateActiveItem(this.getWaters(), backAnim);
-            titlebar.setTitle('Waters');
+            main.setTitle('Waters');
             back.hide();
             break;
           case measurements:
             main.animateActiveItem(stations, backAnim);
-            titlebar.setTitle(back.getText());
+            main.setTitle(back.getText());
             back.setText('Waters');
             break;
         }
@@ -75,8 +75,7 @@ Ext.define('PegelOnline.controller.Main', {
             }
         });
 
-        main.down('toolbar')
-            .setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
+        main.setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
 
         this.getBack().show();
     },
@@ -86,8 +85,7 @@ Ext.define('PegelOnline.controller.Main', {
             main              = this.getMain(),
             measurements      = this.getMeasurements(),
             measurementsStore = Ext.getStore('measurements'),
-            measurementsProxy = measurementsStore.getProxy(),
-            titlebar          = main.down('toolbar');
+            measurementsProxy = measurementsStore.getProxy();
 
         measurementsProxy.setUrl(
             measurementsStore.getUrlPrefix() +
@@ -100,7 +98,7 @@ Ext.define('PegelOnline.controller.Main', {
             }
         });
 
-        this.getBack().setText(titlebar.getTitle().getHtml());
-        titlebar.setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
+        this.getBack().setText(main.getTitle());
+        main.setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
     }
 });

@@ -17,13 +17,23 @@ Ext.define('PegelOnline.view.Main', {
             {
                 docked : 'top',
                 xtype  : 'toolbar',
-                title  : 'Waters',
-                items  : {
-                    id     : 'back',
-                    text   : 'Waters',
-                    ui     : 'back',
-                    hidden : true
-                }
+
+
+                items: [
+                    {
+                        xtype  : 'title',
+                        id     : 'title',
+                        title  : 'Waters'
+                    },
+                    {
+                        id     : 'back',
+                        text   : 'Waters',
+                        ui     : 'back',
+                        zIndex : 42,
+                        right  : 0,
+                        hidden : true
+                    }
+                ]
             },
             {
                 xtype  : 'waters'
@@ -49,5 +59,13 @@ Ext.define('PegelOnline.view.Main', {
                 }
             }
         ]
+    },
+
+    getTitle: function () {
+        return this.down('#title').getTitle();
+    },
+
+    setTitle: function (title) {
+        return this.down('#title').setTitle(title);
     }
 });
