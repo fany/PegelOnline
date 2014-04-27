@@ -743,7 +743,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "PegelOnline.view.Main": []
+  "PegelOnline.controller.Main": [],
+  "PegelOnline.model.Measurement": [],
+  "PegelOnline.model.Station": [],
+  "PegelOnline.model.Water": [],
+  "PegelOnline.store.Measurements": [],
+  "PegelOnline.store.Stations": [],
+  "PegelOnline.store.Waters": [],
+  "PegelOnline.view.Main": [],
+  "PegelOnline.view.Measurements": [],
+  "PegelOnline.view.Stations": [],
+  "PegelOnline.view.Waters": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1687,7 +1697,29 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "PegelOnline.controller.Main": [],
+  "PegelOnline.model.Measurement": [],
+  "PegelOnline.model.Station": [],
+  "PegelOnline.model.Water": [],
+  "PegelOnline.store.Measurements": [
+    "store.measurements"
+  ],
+  "PegelOnline.store.Stations": [
+    "store.stations"
+  ],
+  "PegelOnline.store.Waters": [
+    "store.waters"
+  ],
   "PegelOnline.view.Main": [
     "widget.main"
+  ],
+  "PegelOnline.view.Measurements": [
+    "widget.measurements"
+  ],
+  "PegelOnline.view.Stations": [
+    "widget.stations"
+  ],
+  "PegelOnline.view.Waters": [
+    "widget.waters"
   ]
 });
