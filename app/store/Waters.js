@@ -5,6 +5,7 @@ Ext.define('PegelOnline.store.Waters', {
 
     config: {
         model    : 'PegelOnline.model.Water',
+        sorters  : 'longname',
         autoLoad : true,
 
         grouper: {
