@@ -22,7 +22,12 @@ Ext.define('PegelOnline.view.Main', {
                     {
                         xtype  : 'title',
                         id     : 'title',
-                        title  : 'Waters'
+                        title  : 'Waters',
+
+                        style: {
+                            'line-height' : '1em',
+                            'text-align'  : 'left'
+                        }
                     },
                     {
                         id     : 'back',
@@ -57,14 +62,18 @@ Ext.define('PegelOnline.view.Main', {
                     'text-align'      : 'center'
                 }
             }
-        ]
+        ],
+
+        prevTitle : null
     },
 
-    getTitle: function () {
-        return this.down('#title').getTitle();
+    restoreTitle: function () {
+        return this.setTitle(this.getPrevTitle());
     },
 
     setTitle: function (title) {
-        return this.down('#title').setTitle(title);
+        var titlebar = this.down('#title');
+        this.setPrevTitle(titlebar.getTitle());
+        return titlebar.setTitle(title);
     }
 });
