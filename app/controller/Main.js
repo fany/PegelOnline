@@ -8,18 +8,15 @@ Ext.define('PegelOnline.controller.Main', {
 
     config : {
         anims : {
-            back : {
-                type      : 'slide',
-                direction : 'right'
-            },
-            forward : {
-                type      : 'slide',
-                direction : 'left'
-            }
+            back    : { type      : 'slide', direction : 'right' },
+            flip    : 'flip',
+            forward : { type      : 'slide', direction : 'left'  }
         },
 
         refs: {
             back         : '#back',
+            helpButton   : '#help',
+            helpPage     : 'help',
             main         : 'main',
             measurements : 'measurements',
             stations     : 'stations',
@@ -27,9 +24,10 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         control : {
-            back     : { tap: 'onTapBack' },
-            waters   : { disclose: 'onDiscloseWaters' },
-            stations : { disclose: 'onDiscloseStations' },
+            back       : { tap: 'onTapBack' },
+            helpButton : { tap: 'onTapHelp' },
+            waters     : { disclose: 'onDiscloseWaters' },
+            stations   : { disclose: 'onDiscloseStations' },
         },
 
         views : [
@@ -42,28 +40,42 @@ Ext.define('PegelOnline.controller.Main', {
 
     onTapBack: function () {
         var back         = this.getBack(),
-            backAnim     = this.getAnims().back,
             main         = this.getMain(),
-            measurements = this.getMeasurements(),
             stations     = this.getStations();
 
         switch (main.getActiveItem()) {
-          case stations:
-            main.animateActiveItem(this.getWaters(), backAnim);
+          case this.getHelpPage():
+            main.animateActiveItem(this.getWaters(), this.getAnims().flip);
             main.setTitle('Waters');
             back.hide();
+            this.getHelpButton().show();
             break;
-          case measurements:
-            main.animateActiveItem(stations, backAnim);
+          case stations:
+            main.animateActiveItem(this.getWaters(), this.getAnims().back);
+            main.setTitle('Waters');
+            back.hide();
+            this.getHelpButton().show();
+            break;
+          case this.getMeasurements():
+            main.animateActiveItem(stations, this.getAnims().back);
             main.restoreTitle();
             back.setText('Waters');
             break;
         }
     },
 
+    onTapHelp: function () {
+        var main = this.getMain();
+        main.animateActiveItem(this.getHelpPage(), this.getAnims().flip);
+        main.setTitle('About this app');
+        this.getHelpButton().hide();
+        this.getBack().show();
+    },
+
     onDiscloseWaters: function (list, record) {
         var back          = this.getBack(),
             forwardAnim   = this.getAnims().forward,
+            help          = this.getHelpButton(),
             main          = this.getMain(),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
@@ -88,6 +100,7 @@ Ext.define('PegelOnline.controller.Main', {
             }
             main.setTitle(Ext.util.Format.htmlEncode(title));
 
+            help.hide();
             back.show();
         });
     },

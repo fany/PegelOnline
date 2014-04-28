@@ -4,6 +4,7 @@ Ext.define('PegelOnline.view.Main', {
 
     requires : [
         'Ext.Toolbar',
+        'PegelOnline.view.Help',
         'PegelOnline.view.Measurements',
         'PegelOnline.view.Stations',
         'PegelOnline.view.Waters'
@@ -14,6 +15,18 @@ Ext.define('PegelOnline.view.Main', {
         layout     : 'card',
 
         items : [
+            {
+                xtype  : 'waters'
+            },
+            {
+                xtype  : 'stations'
+            },
+            {
+                xtype  : 'measurements'
+            },
+            {
+                xtype  : 'help'
+            },
             {
                 docked : 'top',
                 xtype  : 'toolbar',
@@ -30,6 +43,11 @@ Ext.define('PegelOnline.view.Main', {
                         }
                     },
                     {
+                        id     : 'help',
+                        iconCls: 'info',
+                        right  : 0
+                    },
+                    {
                         id     : 'back',
                         text   : 'Waters',
                         ui     : 'back',
@@ -38,28 +56,6 @@ Ext.define('PegelOnline.view.Main', {
                         hidden : true
                     }
                 ]
-            },
-            {
-                xtype  : 'waters'
-            },
-            {
-                xtype  : 'stations'
-            },
-            {
-                xtype  : 'measurements'
-            },
-            {
-                docked : 'bottom',
-                xtype  : 'toolbar',
-                html   : '<small>This app uses data provided by <a href="' +
-                         'http://www.pegelonline.wsv.de/webservice/" ' +
-                         'style="color:inherit">PEGELONLINE WEBSERVICES</a>.' +
-                         '</small>',
-                style  : {
-                    color             : 'white',
-                    padding           : '0.5em 0 0 0',
-                    'text-align'      : 'center'
-                }
             }
         ],
 
