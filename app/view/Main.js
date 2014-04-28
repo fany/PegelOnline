@@ -4,6 +4,7 @@ Ext.define('PegelOnline.view.Main', {
 
     requires : [
         'Ext.Toolbar',
+        'PegelOnline.view.Help',
         'PegelOnline.view.Measurements',
         'PegelOnline.view.Stations',
         'PegelOnline.view.Waters'
@@ -15,6 +16,18 @@ Ext.define('PegelOnline.view.Main', {
 
         items : [
             {
+                xtype  : 'waters'
+            },
+            {
+                xtype  : 'stations'
+            },
+            {
+                xtype  : 'measurements'
+            },
+            {
+                xtype  : 'help'
+            },
+            {
                 docked : 'top',
                 xtype  : 'toolbar',
 
@@ -22,7 +35,16 @@ Ext.define('PegelOnline.view.Main', {
                     {
                         xtype  : 'title',
                         id     : 'title',
-                        title  : 'Waters'
+
+                        style: {
+                            'line-height' : '1em',
+                            'text-align'  : 'left'
+                        }
+                    },
+                    {
+                        id     : 'help',
+                        iconCls: 'info',
+                        right  : 0
                     },
                     {
                         id     : 'back',
@@ -33,38 +55,19 @@ Ext.define('PegelOnline.view.Main', {
                         hidden : true
                     }
                 ]
-            },
-            {
-                xtype  : 'waters'
-            },
-            {
-                xtype  : 'stations'
-            },
-            {
-                xtype  : 'measurements'
-            },
-            {
-                docked : 'bottom',
-                xtype  : 'toolbar',
-                html   : '<small>This app uses data provided by <a href="' +
-                         'http://www.pegelonline.wsv.de/webservice/" ' +
-                         'style="color:inherit">PEGELONLINE WEBSERVICES</a>.' +
-                         '</small>',
-                style  : {
-                    'background-color': 'gray',
-                    color             : 'white',
-                    padding           : '0.5em 0 0 0',
-                    'text-align'      : 'center'
-                }
             }
-        ]
+        ],
+
+        prevTitle : null
     },
 
-    getTitle: function () {
-        return this.down('#title').getTitle();
+    restoreTitle: function () {
+        return this.setTitle(this.getPrevTitle());
     },
 
     setTitle: function (title) {
-        return this.down('#title').setTitle(title);
+        var titlebar = this.down('#title');
+        this.setPrevTitle(titlebar.getTitle());
+        return titlebar.setTitle(title);
     }
 });

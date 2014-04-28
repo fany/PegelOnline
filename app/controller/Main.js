@@ -8,18 +8,15 @@ Ext.define('PegelOnline.controller.Main', {
 
     config : {
         anims : {
-            back : {
-                type      : 'slide',
-                direction : 'right'
-            },
-            forward : {
-                type      : 'slide',
-                direction : 'left'
-            }
+            back    : { type      : 'slide', direction : 'right' },
+            flip    : 'flip',
+            forward : { type      : 'slide', direction : 'left'  }
         },
 
         refs: {
             back         : '#back',
+            helpButton   : '#help',
+            helpPage     : 'help',
             main         : 'main',
             measurements : 'measurements',
             stations     : 'stations',
@@ -27,61 +24,97 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         control : {
-            back     : { tap: 'onTapBack' },
-            waters   : { disclose: 'onDiscloseWaters' },
-            stations : { disclose: 'onDiscloseStations' },
+            back       : { tap: 'onTapBack' },
+            helpButton : { tap: 'onTapHelp' },
+            waters     : {
+                disclose : 'onDiscloseWaters',
+                show     : 'onShowWaters'
+            },
+            stations   : { disclose: 'onDiscloseStations' },
         },
 
         views : [
             'Stations',
             'Waters'
-        ]
+        ],
+
+        currentWater   : null
+    },
+
+    onShowWaters: function () {
+        this.getMain().setTitle('Waters');
+        this.getBack().hide();
+        this.getHelpButton().show();
     },
 
     onTapBack: function () {
         var back         = this.getBack(),
-            backAnim     = this.getAnims().back,
             main         = this.getMain(),
-            measurements = this.getMeasurements(),
             stations     = this.getStations();
 
         switch (main.getActiveItem()) {
-          case stations:
-            main.animateActiveItem(this.getWaters(), backAnim);
-            main.setTitle('Waters');
-            back.hide();
+          case this.getHelpPage():
+            main.animateActiveItem(this.getWaters(), this.getAnims().flip);
             break;
-          case measurements:
-            main.animateActiveItem(stations, backAnim);
-            main.setTitle(back.getText());
+          case stations:
+            main.animateActiveItem(this.getWaters(), this.getAnims().back);
+            break;
+          case this.getMeasurements():
+            main.animateActiveItem(stations, this.getAnims().back);
+            main.restoreTitle();
             back.setText('Waters');
             break;
         }
     },
 
+    onTapHelp: function () {
+        var main = this.getMain();
+        main.animateActiveItem(this.getHelpPage(), this.getAnims().flip);
+        main.setTitle('About this app');
+        this.getHelpButton().hide();
+        this.getBack().show();
+    },
+
     onDiscloseWaters: function (list, record) {
-        var forwardAnim   = this.getAnims().forward,
+        var back          = this.getBack(),
+            forwardAnim   = this.getAnims().forward,
+            help          = this.getHelpButton(),
             main          = this.getMain(),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
-            stationsProxy = stationsStore.getProxy();
+            stationsProxy = stationsStore.getProxy(),
+            longname      = record.get('longname'),
+            shortname     = record.get('shortname'),
+            title;
+
+        this.setCurrentWater(record);
 
         stationsProxy.setUrl(
             stationsStore.getUrlPrefix() + record.get('shortname')
         );
-        stationsStore.load(function (records, successful) {
-            if (successful) {
+        stationsStore.load(function (records, operation, success) {
+            if (success) {
                 main.animateActiveItem(stations, forwardAnim);
             }
+
+            title = longname;
+            if (longname.toLocaleUpperCase() !== shortname.toLocaleUpperCase()) {
+                title += ' (' + shortname + ')';
+            }
+            main.setTitle(Ext.util.Format.htmlEncode(title));
+
+            help.hide();
+            back.show();
         });
-
-        main.setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
-
-        this.getBack().show();
     },
 
     onDiscloseStations: function (list, record) {
-        var forwardAnim       = this.getAnims().forward,
+        var back              = this.getBack(),
+            currentWater      = this.getCurrentWater(),
+            currentWaterLong  = currentWater.get('longname'),
+            currentWaterShort = currentWater.get('shortname'),
+            forwardAnim       = this.getAnims().forward,
+            htmlEncode        = Ext.util.Format.htmlEncode,
             main              = this.getMain(),
             measurements      = this.getMeasurements(),
             measurementsStore = Ext.getStore('measurements'),
@@ -92,13 +125,24 @@ Ext.define('PegelOnline.controller.Main', {
             record.get('uuid')               +
             measurementsStore.getUrlSuffix()
         );
-        measurementsStore.load(function (records, successful) {
-            if (successful) {
+        measurementsStore.load(function (records, operation, success) {
+            if (success) {
                 main.animateActiveItem(measurements, forwardAnim);
+
+                back.setText(
+                    htmlEncode(
+                        currentWaterLong.length > 5 &&
+                        currentWaterShort.toLocaleUpperCase() !==
+                         currentWaterLong.toLocaleUpperCase()
+                        ? currentWaterShort
+                        : currentWaterLong
+                    )
+                );
+                main.setTitle(
+                    '<small>' + currentWaterLong + '</small> /<br>' +
+                    htmlEncode(record.get('shortname'))
+                );
             }
         });
-
-        this.getBack().setText(main.getTitle());
-        main.setTitle(Ext.util.Format.htmlEncode(record.get('shortname')));
     }
 });
