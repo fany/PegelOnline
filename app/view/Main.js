@@ -35,7 +35,6 @@ Ext.define('PegelOnline.view.Main', {
                     {
                         xtype  : 'title',
                         id     : 'title',
-                        title  : 'Waters',
 
                         style: {
                             'line-height' : '1em',
