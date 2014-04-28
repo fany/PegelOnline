@@ -21,6 +21,6 @@ Ext.define('PegelOnline.view.Help', {
                   ' them to <a href="mailto:Martin%20H.%20Sluka%20&lt;'        +
                   'martin@sluka.de&gt;">me</a>.</p>',
         padding : '1em'
-    },
+    }
 });
 
