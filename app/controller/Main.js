@@ -24,13 +24,23 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         control : {
-            back       : { tap: 'onTapBack' },
-            helpButton : { tap: 'onTapHelp' },
-            waters     : {
+
+            back: {
+                tap      : 'onTapBack'
+            },
+
+            helpButton: {
+                tap      : 'onTapHelp'
+            },
+
+            waters: {
                 disclose : 'onDiscloseWaters',
                 show     : 'onShowWaters'
             },
-            stations   : { disclose: 'onDiscloseStations' },
+
+            stations: {
+                disclose : 'onDiscloseStations'
+            }
         },
 
         views : [
