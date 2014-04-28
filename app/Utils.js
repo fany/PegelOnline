@@ -1,4 +1,4 @@
-var namespace = Ext.namespace('PegelOnline.Utils');
+var namespace = Ext.define('PegelOnline.Utils', {}); // Make sencha cmd happy.
 
 namespace.foldCase = function (string) {
     if (string.toLocaleUpperCase() === string) {
