@@ -743,6 +743,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
+  "PegelOnline.Utils": [],
   "PegelOnline.controller.Main": [],
   "PegelOnline.model.Measurement": [],
   "PegelOnline.model.Station": [],
@@ -750,6 +751,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "PegelOnline.store.Measurements": [],
   "PegelOnline.store.Stations": [],
   "PegelOnline.store.Waters": [],
+  "PegelOnline.view.Help": [],
   "PegelOnline.view.Main": [],
   "PegelOnline.view.Measurements": [],
   "PegelOnline.view.Stations": [],
@@ -1697,6 +1699,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "PegelOnline.Utils": [],
   "PegelOnline.controller.Main": [],
   "PegelOnline.model.Measurement": [],
   "PegelOnline.model.Station": [],
@@ -1709,6 +1712,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "PegelOnline.store.Waters": [
     "store.waters"
+  ],
+  "PegelOnline.view.Help": [
+    "widget.help"
   ],
   "PegelOnline.view.Main": [
     "widget.main"
