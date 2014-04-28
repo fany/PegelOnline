@@ -56,7 +56,6 @@ Ext.define('PegelOnline.view.Main', {
                          'style="color:inherit">PEGELONLINE WEBSERVICES</a>.' +
                          '</small>',
                 style  : {
-                    'background-color': 'gray',
                     color             : 'white',
                     padding           : '0.5em 0 0 0',
                     'text-align'      : 'center'
