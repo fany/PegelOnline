@@ -4,7 +4,8 @@ Ext.define('PegelOnline.view.TabPanel', {
 
     requires : [
         'PegelOnline.view.Help',
-        'PegelOnline.view.Main'
+        'PegelOnline.view.Main',
+        'PegelOnline.view.Map'
     ],
 
     config: {
@@ -14,8 +15,13 @@ Ext.define('PegelOnline.view.TabPanel', {
         items: [
             {
                 iconCls : 'more',
-                title   : 'Waters',
+                title   : 'List',
                 xtype   : 'main'
+            },
+            {
+                iconCls : 'maps',
+                title   : 'Map',
+                xtype   : 'wmap'
             },
             {
                 iconCls : 'info',

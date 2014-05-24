@@ -81,7 +81,7 @@ Ext.define('PegelOnline.controller.Main', {
         this.setCurrentWater(record);
 
         stationsProxy.setUrl(
-            stationsStore.getUrlPrefix() + record.get('shortname')
+            stationsStore.getUrlPrefix() + '?waters=' + record.get('shortname')
         );
         stationsStore.load(function (records, operation, success) {
             if (success) {

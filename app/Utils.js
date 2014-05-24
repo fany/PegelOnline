@@ -6,6 +6,7 @@ namespace.foldCase = function (string) {
             /[^- ._]{3,}/g,
             function (word) {
                 if (
+                    word !== 'WSA' &&
                     !~word.search(/[0-9]/) &&  // z. B. HOW/DGW1
                     ~word.search(/[AEIOYUÄÖÜ]/) // z. B. DFH, SHW; beachte: Sylt
                 ) {
