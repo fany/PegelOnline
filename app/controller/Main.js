@@ -13,16 +13,18 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         refs: {
-            measurements            : 'measurements',
-            stations                : 'stations',
-            tabList                 : 'tabList',
-            tabListMeasurementsBack : 'tabList measurements #back',
-            tabListStationsBack     : 'tabList stations #back',
-            tabMap                  : 'tabMap',
-            tabMapMeasurements      : 'tabMap measurements',
-            tabMapMeasurementsBack  : 'tabMap measurements #back',
-            waters                  : 'waters',
-            wmap                    : 'wmap'
+            measurements             : 'measurements',
+            stations                 : 'stations',
+            tabList                  : 'tabList',
+            tabListMeasurementsBack  : 'tabList measurements #back',
+            tabListMeasurementsChart : 'tabList measurements chart',
+            tabListStationsBack      : 'tabList stations #back',
+            tabMap                   : 'tabMap',
+            tabMapMeasurements       : 'tabMap measurements',
+            tabMapMeasurementsBack   : 'tabMap measurements #back',
+            tabMapMeasurementsChart  : 'tabMap measurements chart',
+            waters                   : 'waters',
+            wmap                     : 'wmap'
         },
 
         control : {
@@ -59,7 +61,7 @@ Ext.define('PegelOnline.controller.Main', {
     onTapTabListMeasurementsBack: function () {
         this.getTabList().animateActiveItem(
             this.getStations(),
-            this.getAnims().back
+            'pop'
         );
     },
 
@@ -114,7 +116,7 @@ Ext.define('PegelOnline.controller.Main', {
             forwardAnim       = this.getAnims().forward,
             htmlEncode        = Ext.util.Format.htmlEncode,
             measurements      = this.getMeasurements(),
-            measurementsStore = Ext.getStore('measurements'),
+            measurementsStore = this.getTabListMeasurementsChart().getStore(),
             measurementsProxy = measurementsStore.getProxy(),
             tabList           = this.getTabList();
 
@@ -151,11 +153,9 @@ Ext.define('PegelOnline.controller.Main', {
                                     station.get('water')
                                 ),
             currentWaterLong  = currentWater.get('longname'),
-            currentWaterShort = currentWater.get('shortname'),
-            forwardAnim       = this.getAnims().forward,
             htmlEncode        = Ext.util.Format.htmlEncode,
             measurements      = this.getMeasurements(),
-            measurementsStore = Ext.getStore('measurements'),
+            measurementsStore = this.getTabMapMeasurementsChart().getStore(),
             measurementsProxy = measurementsStore.getProxy(),
             tabMap            = this.getTabMap();
 
@@ -166,16 +166,7 @@ Ext.define('PegelOnline.controller.Main', {
         );
         measurementsStore.load(function (records, operation, success) {
             if (success) {
-                tabMap.animateActiveItem(measurements, forwardAnim);
-                backToMap.setText(
-                    htmlEncode(
-                        currentWaterLong.length > 5 &&
-                        currentWaterShort.toLocaleUpperCase() !==
-                         currentWaterLong.toLocaleUpperCase()
-                        ? currentWaterShort
-                        : currentWaterLong
-                    )
-                );
+                tabMap.animateActiveItem(measurements, 'pop');
                 measurements.down('title').setTitle(
                     '<small>' + currentWaterLong + '</small> /<br>' +
                     htmlEncode(station.get('shortname'))
