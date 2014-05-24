@@ -8,7 +8,7 @@ Ext.define('PegelOnline.view.Help', {
     ],
 
     config: {
-        items : [
+        items: [
             {
                 docked : 'top',
                 xtype  : 'toolbar',
@@ -46,7 +46,9 @@ Ext.define('PegelOnline.view.Help', {
                   'martin@sluka.de&gt;">report them to me</a>.</p>',
                 padding: '1em'
             }
-        ]
+        ],
+
+        scrollable : 'vertical'
     }
 });
 
