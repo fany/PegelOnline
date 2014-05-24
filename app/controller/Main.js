@@ -38,6 +38,7 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         views : [
+            'Measurements',
             'Stations',
             'Waters'
         ],
