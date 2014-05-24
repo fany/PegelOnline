@@ -27,7 +27,7 @@ Ext.define('PegelOnline.view.TabPanel', {
                 iconCls : 'info',
                 title   : 'Info',
                 xtype   : 'help'
-            },
+            }
         ]
     }
 });

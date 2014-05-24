@@ -3,13 +3,30 @@ Ext.define('PegelOnline.view.Map', {
     xtype  : 'wmap',
 
     requires :  [
+        'Ext.Title',
+        'Ext.Toolbar',
         'Ext.util.Geolocation',
         'PegelOnline.Utils'
     ],
 
     config: {
-        mapOptions : { zoom: 10 },
+        mapOptions         : { zoom: 10 },
         useCurrentLocation : { autoUpdate: false },
+
+        items: [
+            {
+                docked : 'top',
+                xtype  : 'toolbar',
+
+                items: [
+                    {
+                        xtype : 'title',
+                        title : 'Measurement stations',
+                        style : { 'text-align': 'left' }
+                    }
+                ]
+            }
+        ],
 
         listeners: {
             maprender : 'onMapRender',
@@ -55,7 +72,7 @@ Ext.define('PegelOnline.view.Map', {
                             marker,
                             'dblclick',
                             function () {
-                                alert("double click");
+                                me.fireEvent('disclose', null, station);
                             }
                         );
                     }

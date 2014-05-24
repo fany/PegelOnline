@@ -3,11 +3,34 @@ Ext.define('PegelOnline.view.Stations', {
     xtype  : 'stations',
 
     requires: [
+        'Ext.Title',
+        'Ext.Toolbar',
         'Ext.XTemplate',
         'PegelOnline.store.Stations'
     ],
 
     config: {
+        items: [
+            {
+                docked : 'top',
+                xtype  : 'toolbar',
+
+                items: [
+                    {
+                        xtype : 'title',
+                        style : { 'text-align': 'left' }
+                    },
+                    {
+                        id     : 'backToWaters',
+                        text   : 'Waters',
+                        ui     : 'back',
+                        zIndex : 42,
+                        right  : 0
+                    }
+                ]
+            }
+        ],
+
         itemTpl          : Ext.create(
                                'Ext.XTemplate',
                                '<div style="float:right;margin-right:2em">',

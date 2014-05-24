@@ -8,36 +8,45 @@ Ext.define('PegelOnline.controller.Main', {
 
     config : {
         anims : {
-            back    : { type      : 'slide', direction : 'right' },
-            forward : { type      : 'slide', direction : 'left'  }
+            back    : { type: 'slide', direction: 'right' },
+            forward : { type: 'slide', direction: 'left'  }
         },
 
         refs: {
-            back         : '#back',
-            helpPage     : 'help',
-            main         : 'main',
-            measurements : 'measurements',
-            stations     : 'stations',
-            waters       : 'waters'
+            backToStations : '#backToStations',
+            backToWaters   : '#backToWaters',
+            helpPage       : 'help',
+            main           : 'main',
+            measurements   : 'measurements',
+            stations       : 'stations',
+            waters         : 'waters',
+            wmap           : 'wmap'
         },
 
         control : {
+            backToStations: {
+                tap      : 'onTapBackToStations'
+            },
 
-            back: {
-                tap      : 'onTapBack'
+            backToWaters: {
+                tap      : 'onTapBackToWaters'
             },
 
             waters: {
-                disclose : 'onDiscloseWaters',
-                show     : 'onShowWaters'
+                disclose : 'onDiscloseWaters'
             },
 
             stations: {
                 disclose : 'onDiscloseStations'
+            },
+
+            wmap: {
+                disclose : 'onDiscloseWMap'
             }
         },
 
         views : [
+            'Map',
             'Measurements',
             'Stations',
             'Waters'
@@ -46,43 +55,35 @@ Ext.define('PegelOnline.controller.Main', {
         currentWater   : null
     },
 
-    onShowWaters: function () {
-        this.getMain().setTitle('Waters');
-        this.getBack().hide();
+    onTapBackToStations: function () {
+        this.getMain().animateActiveItem(
+            this.getStations(),
+            this.getAnims().back
+        );
     },
 
-    onTapBack: function () {
-        var back         = this.getBack(),
-            main         = this.getMain(),
-            stations     = this.getStations();
 
-        switch (main.getActiveItem()) {
-          case stations:
-            main.animateActiveItem(this.getWaters(), this.getAnims().back);
-            break;
-          case this.getMeasurements():
-            main.animateActiveItem(stations, this.getAnims().back);
-            main.restoreTitle();
-            back.setText('Waters');
-            break;
-        }
+    onTapBackToWaters: function () {
+        this.getMain().animateActiveItem(
+            this.getWaters(),
+            this.getAnims().back
+        );
     },
 
-    onDiscloseWaters: function (list, record) {
-        var back          = this.getBack(),
-            forwardAnim   = this.getAnims().forward,
+    onDiscloseWaters: function (list, water) {
+        var forwardAnim   = this.getAnims().forward,
             main          = this.getMain(),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
             stationsProxy = stationsStore.getProxy(),
-            longname      = record.get('longname'),
-            shortname     = record.get('shortname'),
+            longname      = water.get('longname'),
+            shortname     = water.get('shortname'),
             title;
 
-        this.setCurrentWater(record);
+        this.setCurrentWater(water);
 
         stationsProxy.setUrl(
-            stationsStore.getUrlPrefix() + '?waters=' + record.get('shortname')
+            stationsStore.getUrlPrefix() + '?waters=' + water.get('shortname')
         );
         stationsStore.load(function (records, operation, success) {
             if (success) {
@@ -93,14 +94,12 @@ Ext.define('PegelOnline.controller.Main', {
             if (longname.toLocaleUpperCase() !== shortname.toLocaleUpperCase()) {
                 title += ' (' + shortname + ')';
             }
-            main.setTitle(Ext.util.Format.htmlEncode(title));
-
-            back.show();
+            stations.down('title').setTitle(Ext.util.Format.htmlEncode(title));
         });
     },
 
-    onDiscloseStations: function (list, record) {
-        var back              = this.getBack(),
+    onDiscloseStations: function (list, station) {
+        var backToStations    = this.getBackToStations(),
             currentWater      = this.getCurrentWater(),
             currentWaterLong  = currentWater.get('longname'),
             currentWaterShort = currentWater.get('shortname'),
@@ -113,14 +112,14 @@ Ext.define('PegelOnline.controller.Main', {
 
         measurementsProxy.setUrl(
             measurementsStore.getUrlPrefix() +
-            record.get('uuid')               +
+            station.get('uuid')              +
             measurementsStore.getUrlSuffix()
         );
         measurementsStore.load(function (records, operation, success) {
             if (success) {
                 main.animateActiveItem(measurements, forwardAnim);
 
-                back.setText(
+                backToStations.setText(
                     htmlEncode(
                         currentWaterLong.length > 5 &&
                         currentWaterShort.toLocaleUpperCase() !==
@@ -129,9 +128,50 @@ Ext.define('PegelOnline.controller.Main', {
                         : currentWaterLong
                     )
                 );
-                main.setTitle(
+                measurements.down('title').setTitle(
                     '<small>' + currentWaterLong + '</small> /<br>' +
-                    htmlEncode(record.get('shortname'))
+                    htmlEncode(station.get('shortname'))
+                );
+            }
+        });
+    },
+
+    onDiscloseWMap: function (list, station) {
+        var backToStations    = this.getBackToStations(),
+            currentWater      = Ext.create(
+                                    'PegelOnline.model.Water',
+                                    station.get('water')
+                                ),
+            currentWaterLong  = currentWater.get('longname'),
+            currentWaterShort = currentWater.get('shortname'),
+            forwardAnim       = this.getAnims().forward,
+            htmlEncode        = Ext.util.Format.htmlEncode,
+            main              = this.getMain(),
+            measurements      = this.getMeasurements(),
+            measurementsStore = Ext.getStore('measurements'),
+            measurementsProxy = measurementsStore.getProxy();
+
+        measurementsProxy.setUrl(
+            measurementsStore.getUrlPrefix() +
+            station.get('uuid')              +
+            measurementsStore.getUrlSuffix()
+        );
+        measurementsStore.load(function (records, operation, success) {
+            if (success) {
+                main.animateActiveItem(measurements, forwardAnim);
+
+                backToStations.setText(
+                    htmlEncode(
+                        currentWaterLong.length > 5 &&
+                        currentWaterShort.toLocaleUpperCase() !==
+                         currentWaterLong.toLocaleUpperCase()
+                        ? currentWaterShort
+                        : currentWaterLong
+                    )
+                );
+                measurements.down('title').setTitle(
+                    '<small>' + currentWaterLong + '</small> /<br>' +
+                    htmlEncode(station.get('shortname'))
                 );
             }
         });
