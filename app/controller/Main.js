@@ -9,13 +9,11 @@ Ext.define('PegelOnline.controller.Main', {
     config : {
         anims : {
             back    : { type      : 'slide', direction : 'right' },
-            flip    : 'flip',
             forward : { type      : 'slide', direction : 'left'  }
         },
 
         refs: {
             back         : '#back',
-            helpButton   : '#help',
             helpPage     : 'help',
             main         : 'main',
             measurements : 'measurements',
@@ -27,10 +25,6 @@ Ext.define('PegelOnline.controller.Main', {
 
             back: {
                 tap      : 'onTapBack'
-            },
-
-            helpButton: {
-                tap      : 'onTapHelp'
             },
 
             waters: {
@@ -54,7 +48,6 @@ Ext.define('PegelOnline.controller.Main', {
     onShowWaters: function () {
         this.getMain().setTitle('Waters');
         this.getBack().hide();
-        this.getHelpButton().show();
     },
 
     onTapBack: function () {
@@ -63,9 +56,6 @@ Ext.define('PegelOnline.controller.Main', {
             stations     = this.getStations();
 
         switch (main.getActiveItem()) {
-          case this.getHelpPage():
-            main.animateActiveItem(this.getWaters(), this.getAnims().flip);
-            break;
           case stations:
             main.animateActiveItem(this.getWaters(), this.getAnims().back);
             break;
@@ -77,18 +67,9 @@ Ext.define('PegelOnline.controller.Main', {
         }
     },
 
-    onTapHelp: function () {
-        var main = this.getMain();
-        main.animateActiveItem(this.getHelpPage(), this.getAnims().flip);
-        main.setTitle('About this app');
-        this.getHelpButton().hide();
-        this.getBack().show();
-    },
-
     onDiscloseWaters: function (list, record) {
         var back          = this.getBack(),
             forwardAnim   = this.getAnims().forward,
-            help          = this.getHelpButton(),
             main          = this.getMain(),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
@@ -113,7 +94,6 @@ Ext.define('PegelOnline.controller.Main', {
             }
             main.setTitle(Ext.util.Format.htmlEncode(title));
 
-            help.hide();
             back.show();
         });
     },
