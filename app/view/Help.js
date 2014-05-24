@@ -23,7 +23,7 @@ Ext.define('PegelOnline.view.Help', {
             },
             {
                 html:
-                  '<p style="margin-bottom:1em">This app was made by '         +
+                  '<p style="margin-bottom:1em">This app was created by '      +
                   'Martin H. Sluka &lt;<a href="mailto:Martin%20H.%20Sluka'    +
                   '%20&lt;iversity@martin.sluka.de&gt;">'                      +
                   'iversity@martin.sluka.de</a>&gt;.</p>'                      +
