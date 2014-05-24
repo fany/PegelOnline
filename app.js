@@ -12,8 +12,12 @@
 
 Ext.application({
     name        : 'PegelOnline',
-    requires    : [ 'Ext.MessageBox' ],
     controllers : [ 'Main' ],
+
+    requires    : [
+        'Ext.MessageBox',
+        'PegelOnline.view.TabPanel'
+    ],
 
     icon: {
         '57': 'resources/icons/Icon.png',
