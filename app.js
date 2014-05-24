@@ -16,7 +16,7 @@ Ext.application({
 
     requires    : [
         'Ext.MessageBox',
-        'PegelOnline.view.TabPanel'
+        'PegelOnline.view.Main'
     ],
 
     icon: {
@@ -42,7 +42,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('PegelOnline.view.TabPanel'));
+        Ext.Viewport.add(Ext.create('PegelOnline.view.Main'));
     },
 
     onUpdated: function() {

@@ -32,7 +32,7 @@ Ext.define('PegelOnline.view.Measurements', {
                         }
                     },
                     {
-                        id     : 'backToStations',
+                        itemId : 'back',
                         text   : 'Back',
                         ui     : 'back',
                         zIndex : 42,

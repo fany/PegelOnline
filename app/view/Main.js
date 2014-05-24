@@ -1,24 +1,33 @@
 Ext.define('PegelOnline.view.Main', {
-    extend   : 'Ext.Container',
-    xtype    : 'main',
+    extend : 'Ext.tab.Panel',
+    xtype  : 'main',
 
     requires : [
-        'Ext.Title',
-        'Ext.Toolbar',
-        'PegelOnline.view.Help',
-        'PegelOnline.view.Measurements',
-        'PegelOnline.view.Stations',
-        'PegelOnline.view.Waters'
+        'PegelOnline.view.TabInfo',
+        'PegelOnline.view.TabList',
+        'PegelOnline.view.TabMap'
     ],
 
-    config   : {
-        layout : 'card',
+    config: {
+        tabBarPosition : 'bottom',
+        layout         : { animation: 'flip' },
 
         items: [
-            { xtype  : 'waters' },
-            { xtype  : 'stations' },
-            { xtype  : 'measurements' },
-            { xtype  : 'help' }
-        ],
+            {
+                iconCls : 'more',
+                title   : 'List',
+                xtype   : 'tabList'
+            },
+            {
+                iconCls : 'maps',
+                title   : 'Map',
+                xtype   : 'tabMap'
+            },
+            {
+                iconCls : 'info',
+                title   : 'Info',
+                xtype   : 'tabInfo'
+            }
+        ]
     }
 });

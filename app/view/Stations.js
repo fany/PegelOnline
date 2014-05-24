@@ -21,7 +21,7 @@ Ext.define('PegelOnline.view.Stations', {
                         style : { 'text-align': 'left' }
                     },
                     {
-                        id     : 'backToWaters',
+                        itemId : 'back',
                         text   : 'Waters',
                         ui     : 'back',
                         zIndex : 42,

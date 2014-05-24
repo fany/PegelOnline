@@ -13,23 +13,29 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         refs: {
-            backToStations : '#backToStations',
-            backToWaters   : '#backToWaters',
-            helpPage       : 'help',
-            main           : 'main',
-            measurements   : 'measurements',
-            stations       : 'stations',
-            waters         : 'waters',
-            wmap           : 'wmap'
+            measurements            : 'measurements',
+            stations                : 'stations',
+            tabList                 : 'tabList',
+            tabListMeasurementsBack : 'tabList measurements #back',
+            tabListStationsBack     : 'tabList stations #back',
+            tabMap                  : 'tabMap',
+            tabMapMeasurements      : 'tabMap measurements',
+            tabMapMeasurementsBack  : 'tabMap measurements #back',
+            waters                  : 'waters',
+            wmap                    : 'wmap'
         },
 
         control : {
-            backToStations: {
-                tap      : 'onTapBackToStations'
+            tabListMeasurementsBack: {
+                tap      : 'onTapTabListMeasurementsBack'
             },
 
-            backToWaters: {
-                tap      : 'onTapBackToWaters'
+            tabListStationsBack: {
+                tap      : 'onTapTabListStationsBack'
+            },
+
+            tabMapMeasurementsBack: {
+                tap      : 'onTapMapMeasurementsBack'
             },
 
             waters: {
@@ -45,39 +51,41 @@ Ext.define('PegelOnline.controller.Main', {
             }
         },
 
-        views : [
-            'Map',
-            'Measurements',
-            'Stations',
-            'Waters'
-        ],
+        views : [ 'Main' ],
 
-        currentWater   : null
+        currentWater : null
     },
 
-    onTapBackToStations: function () {
-        this.getMain().animateActiveItem(
+    onTapTabListMeasurementsBack: function () {
+        this.getTabList().animateActiveItem(
             this.getStations(),
             this.getAnims().back
         );
     },
 
 
-    onTapBackToWaters: function () {
-        this.getMain().animateActiveItem(
+    onTapTabListStationsBack: function () {
+        this.getTabList().animateActiveItem(
             this.getWaters(),
+            this.getAnims().back
+        );
+    },
+
+    onTapTabMapMeasurementsBack: function () {
+        this.getTabMap().animateActiveItem(
+            this.getWMap(),
             this.getAnims().back
         );
     },
 
     onDiscloseWaters: function (list, water) {
         var forwardAnim   = this.getAnims().forward,
-            main          = this.getMain(),
+            longname      = water.get('longname'),
+            shortname     = water.get('shortname'),
             stations      = this.getStations(),
             stationsStore = Ext.getStore('stations'),
             stationsProxy = stationsStore.getProxy(),
-            longname      = water.get('longname'),
-            shortname     = water.get('shortname'),
+            tabList       = this.getTabList(),
             title;
 
         this.setCurrentWater(water);
@@ -87,7 +95,7 @@ Ext.define('PegelOnline.controller.Main', {
         );
         stationsStore.load(function (records, operation, success) {
             if (success) {
-                main.animateActiveItem(stations, forwardAnim);
+                tabList.animateActiveItem(stations, forwardAnim);
             }
 
             title = longname;
@@ -99,16 +107,16 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseStations: function (list, station) {
-        var backToStations    = this.getBackToStations(),
+        var backToStations    = this.getTabListMeasurementsBack(),
             currentWater      = this.getCurrentWater(),
             currentWaterLong  = currentWater.get('longname'),
             currentWaterShort = currentWater.get('shortname'),
             forwardAnim       = this.getAnims().forward,
             htmlEncode        = Ext.util.Format.htmlEncode,
-            main              = this.getMain(),
             measurements      = this.getMeasurements(),
             measurementsStore = Ext.getStore('measurements'),
-            measurementsProxy = measurementsStore.getProxy();
+            measurementsProxy = measurementsStore.getProxy(),
+            tabList           = this.getTabList();
 
         measurementsProxy.setUrl(
             measurementsStore.getUrlPrefix() +
@@ -117,7 +125,7 @@ Ext.define('PegelOnline.controller.Main', {
         );
         measurementsStore.load(function (records, operation, success) {
             if (success) {
-                main.animateActiveItem(measurements, forwardAnim);
+                tabList.animateActiveItem(measurements, forwardAnim);
 
                 backToStations.setText(
                     htmlEncode(
@@ -137,7 +145,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseWMap: function (list, station) {
-        var backToStations    = this.getBackToStations(),
+        var backToMap         = this.getTabMapMeasurementsBack(),
             currentWater      = Ext.create(
                                     'PegelOnline.model.Water',
                                     station.get('water')
@@ -146,10 +154,10 @@ Ext.define('PegelOnline.controller.Main', {
             currentWaterShort = currentWater.get('shortname'),
             forwardAnim       = this.getAnims().forward,
             htmlEncode        = Ext.util.Format.htmlEncode,
-            main              = this.getMain(),
             measurements      = this.getMeasurements(),
             measurementsStore = Ext.getStore('measurements'),
-            measurementsProxy = measurementsStore.getProxy();
+            measurementsProxy = measurementsStore.getProxy(),
+            tabMap            = this.getTabMap();
 
         measurementsProxy.setUrl(
             measurementsStore.getUrlPrefix() +
@@ -158,9 +166,8 @@ Ext.define('PegelOnline.controller.Main', {
         );
         measurementsStore.load(function (records, operation, success) {
             if (success) {
-                main.animateActiveItem(measurements, forwardAnim);
-
-                backToStations.setText(
+                tabMap.animateActiveItem(measurements, forwardAnim);
+                backToMap.setText(
                     htmlEncode(
                         currentWaterLong.length > 5 &&
                         currentWaterShort.toLocaleUpperCase() !==

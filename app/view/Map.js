@@ -5,7 +5,6 @@ Ext.define('PegelOnline.view.Map', {
     requires :  [
         'Ext.Title',
         'Ext.Toolbar',
-        'Ext.util.Geolocation',
         'PegelOnline.Utils'
     ],
 

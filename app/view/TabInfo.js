@@ -1,6 +1,6 @@
-Ext.define('PegelOnline.view.Help', {
+Ext.define('PegelOnline.view.TabInfo', {
     extend : 'Ext.Container',
-    xtype  : 'help',
+    xtype  : 'tabInfo',
 
     requires : [
         'Ext.Title',
