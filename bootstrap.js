@@ -743,7 +743,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "PegelOnline.view.Main": []
+  "PegelOnline.view.TabPanel": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1687,7 +1687,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
-  "PegelOnline.view.Main": [
+  "PegelOnline.view.TabPanel": [
     "widget.main"
   ]
 });
