@@ -11,7 +11,6 @@ Ext.define('PegelOnline.view.Main', {
     ],
 
     config   : {
-        fullscreen : true,
         layout     : 'card',
 
         items : [
@@ -40,11 +39,6 @@ Ext.define('PegelOnline.view.Main', {
                             'line-height' : '1em',
                             'text-align'  : 'left'
                         }
-                    },
-                    {
-                        id     : 'help',
-                        iconCls: 'info',
-                        right  : 0
                     },
                     {
                         id     : 'back',

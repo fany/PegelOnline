@@ -3,7 +3,26 @@ Ext.define('PegelOnline.view.Help', {
     xtype  : 'help',
 
     config: {
-        html    : '<p style="margin-bottom:1em">This app visualizes data '     +
+        items : [
+            {
+                docked : 'top',
+                xtype  : 'toolbar',
+
+                items: [
+                    {
+                        xtype : 'title',
+                        title : 'About this app',
+                        style : { 'text-align': 'left' }
+                    }
+                ]
+            },
+            {
+                html:
+                  '<p style="margin-bottom:1em">This app was made by '         +
+                  'Martin H. Sluka &lt;<a href="mailto:Martin%20H.%20Sluka'    +
+                  '%20&lt;iversity@martin.sluka.de&gt;">'                      +
+                  'iversity@martin.sluka.de</a>&gt;.</p>'                      +
+                  '<p style="margin-bottom:1em">It visualizes data '           +
                   ' provided by '                                              +
                   ' <a href="http://www.pegelonline.wsv.de/webservice/"'       +
                   ' style="color:inherit">PEGELONLINE WEBSERVICES</a> and '    +
@@ -17,10 +36,12 @@ Ext.define('PegelOnline.view.Help', {
                   ' drag this graph to see the data for previous days or '     +
                   ' zoom in by pinching to get a more detailed graph.</p>'     +
                   '<p style="margin-bottom:1em">I hope you enjoy using this '  +
-                  ' app. Should you encounter any problems, please report '    +
-                  ' them to <a href="mailto:Martin%20H.%20Sluka%20&lt;'        +
-                  'martin@sluka.de&gt;">me</a>.</p>',
-        padding : '1em'
+                  ' app. Should you encounter any problems, please '           +
+                  '<a href="mailto:Martin%20H.%20Sluka%20&lt;'                 +
+                  'martin@sluka.de&gt;">report them to me</a>.</p>',
+                padding: '1em'
+            }
+        ]
     }
 });
 
