@@ -2,6 +2,11 @@ Ext.define('PegelOnline.view.Help', {
     extend : 'Ext.Container',
     xtype  : 'help',
 
+    requires : [
+        'Ext.Title',
+        'Ext.Toolbar'
+    ],
+
     config: {
         items : [
             {

@@ -14,7 +14,6 @@ Ext.define('PegelOnline.controller.Main', {
 
         refs: {
             back         : '#back',
-            helpPage     : 'help',
             main         : 'main',
             measurements : 'measurements',
             stations     : 'stations',
@@ -38,6 +37,7 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         views : [
+            'Measurements',
             'Stations',
             'Waters'
         ],
