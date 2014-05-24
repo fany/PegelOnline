@@ -755,6 +755,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "PegelOnline.view.Main": [],
   "PegelOnline.view.Measurements": [],
   "PegelOnline.view.Stations": [],
+  "PegelOnline.view.TabPanel": [],
   "PegelOnline.view.Waters": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1724,6 +1725,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "PegelOnline.view.Stations": [
     "widget.stations"
+  ],
+  "PegelOnline.view.TabPanel": [
+    "widget.maintabs"
   ],
   "PegelOnline.view.Waters": [
     "widget.waters"
