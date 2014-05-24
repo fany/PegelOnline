@@ -3,6 +3,7 @@ Ext.define('PegelOnline.view.Main', {
     xtype    : 'main',
 
     requires : [
+        'Ext.Title',
         'Ext.Toolbar',
         'PegelOnline.view.Help',
         'PegelOnline.view.Measurements',
