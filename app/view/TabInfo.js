@@ -43,7 +43,7 @@ Ext.define('PegelOnline.view.TabInfo', {
                   '<p style="margin-bottom:1em">Alternatively, you may use'    +
                   ' the "Map" tab to get a map of all available measurement '  +
                   ' stations. Tap a station once to get further details, or '  +
-                  ' double-click to get to its graph.</p>'                     +
+                  ' double-tap to get to its graph.</p>'                       +
                   '<p style="margin-bottom:1em">I hope you enjoy using this '  +
                   ' app. Should you encounter any problems, please '           +
                   '<a href="mailto:Martin%20H.%20Sluka%20&lt;'                 +

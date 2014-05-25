@@ -33,7 +33,7 @@ Ext.define('PegelOnline.view.Map', {
             single    : true
         },
 
-        infoWindows: []
+        infoWindow : null
     },
 
     onMapRender: function (me, map) {
@@ -50,7 +50,6 @@ Ext.define('PegelOnline.view.Map', {
         stationsStore.load(function (records, operation, success) {
             var foldCase      = PegelOnline.Utils.foldCase,
                 geo           = me.getGeo(),
-                infoWindows   = me.getInfoWindows(),
                 latitude      = geo.getLatitude(),
                 longitude     = geo.getLongitude(),
                 maps          = google.maps,
@@ -91,25 +90,34 @@ Ext.define('PegelOnline.view.Map', {
                             marker,
                             'click',
                             function () {
-                                var infoWindow = new maps.InfoWindow({
+                                var infoWindow = me.getInfoWindow();
+                                if (infoWindow) {
+                                    infoWindow.close();
+                                }
+                                infoWindow = new maps.InfoWindow({
                                     content:
-                                        '<strong>' + longname + '</strong><br>' +
                                         foldCase(station.get('water').longname) +
-                                        ' (@ ' + station.get('km') + ' km)<br>' +
-                                        foldCase(station.get('agency'))
+                                        ' /<br><strong>' + longname +
+                                        '</strong> (@ ' + station.get('km') +
+                                        ' km)<br>' +
+                                        foldCase(station.get('agency')) +
+                                        '<br><br><i>(Double-tap marker to ' +
+                                        'display<br>graph of water level)</i>'
                                 });
                                 infoWindow.open(map, marker);
-                                infoWindows.push(infoWindow);
+                                me.setInfoWindow(infoWindow);
                             }
                         );
                         maps.event.addListener(
                             marker,
                             'dblclick',
                             function () {
+                                var infoWindow = me.getInfoWindow();
                                 me.fireEvent('disclose', station);
-                                infoWindows.forEach(function (infoWindow) {
+                                if (infoWindow) {
                                     infoWindow.close();
-                                });
+                                    me.setInfoWindow(null);
+                                }
                             }
                         );
                     }
