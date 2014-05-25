@@ -11,8 +11,8 @@ Ext.define('PegelOnline.view.TabMap', {
         layout : 'card',
 
         items: [
-            { xtype  : 'wmap' },
-            { xtype  : 'measurements' }
+            { xtype : 'wmap' },
+            { xtype : 'measurements' }
         ]
     }
 });

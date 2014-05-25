@@ -12,9 +12,9 @@ Ext.define('PegelOnline.view.TabList', {
         layout : 'card',
 
         items: [
-            { xtype  : 'waters' },
-            { xtype  : 'stations' },
-            { xtype  : 'measurements' }
+            { xtype : 'waters' },
+            { xtype : 'stations' },
+            { xtype : 'measurements' }
         ]
     }
 });
