@@ -61,7 +61,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onTapTabListMeasurementsBack: function () {
-        // console.log('onTapTabListMeasurementsBack');
+        console.log('onTapTabListMeasurementsBack');
         this.getTabList().animateActiveItem(
             this.getStations(),
             this.getAnims().back
@@ -70,7 +70,7 @@ Ext.define('PegelOnline.controller.Main', {
 
 
     onTapTabListStationsBack: function () {
-        // console.log('onTapTabListStationsBack');
+        console.log('onTapTabListStationsBack');
         this.getTabList().animateActiveItem(
             this.getWaters(),
             this.getAnims().back
@@ -78,7 +78,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onTapTabMapMeasurementsBack: function () {
-        // console.log('onTapTabMapMeasurementsBack');
+        console.log('onTapTabMapMeasurementsBack');
         this.getTabMap().animateActiveItem(
             this.getWMap(),
             this.getAnims().cover
@@ -86,12 +86,12 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseWaters: function (list, water) {
-        // console.log('onDiscloseWaters');
+        console.log('onDiscloseWaters');
         var forwardAnim   = this.getAnims().forward,
             longname      = water.get('longname'),
             shortname     = water.get('shortname'),
             stations      = this.getStations(),
-            stationsStore = Ext.getStore('stations'),
+            stationsStore = stations.getStore(),
             stationsProxy = stationsStore.getProxy(),
             tabList       = this.getTabList(),
             title;
@@ -115,7 +115,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseStations: function (list, station) {
-        // console.log('onDiscloseStations');
+        console.log('onDiscloseStations');
         var backToStations    = this.getTabListMeasurementsBack(),
             currentWater      = this.getCurrentWater(),
             currentWaterLong  = currentWater.get('longname'),
@@ -154,7 +154,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseWMap: function (list, station) {
-        // console.log('onDiscloseWMap');
+        console.log('onDiscloseWMap');
         var currentWater      = Ext.create(
                                     'PegelOnline.model.Water',
                                     station.get('water')
