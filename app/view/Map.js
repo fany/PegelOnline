@@ -72,7 +72,7 @@ Ext.define('PegelOnline.view.Map', {
                             marker,
                             'dblclick',
                             function () {
-                                me.fireEvent('disclose', null, station);
+                                me.fireEvent('disclose', station);
                             }
                         );
                     }
