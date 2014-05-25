@@ -10,7 +10,7 @@ Ext.define('PegelOnline.view.Map', {
     ],
 
     config: {
-        mapOptions         : { zoom: 9 },
+        mapOptions         : { zoom: 8 },
         useCurrentLocation : { autoUpdate: false },
 
         items: [
