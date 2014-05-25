@@ -5,6 +5,7 @@ Ext.define('PegelOnline.view.Map', {
     requires :  [
         'Ext.Title',
         'Ext.Toolbar',
+        'PegelOnline.store.Stations',
         'PegelOnline.Utils'
     ],
 
@@ -34,7 +35,7 @@ Ext.define('PegelOnline.view.Map', {
     },
 
     onMapRender: function (me, map) {
-        var stationsStore = Ext.getStore('stations'),
+        var stationsStore = Ext.create('PegelOnline.store.Stations'),
             stationsProxy = stationsStore.getProxy();
         stationsProxy.setUrl(stationsStore.getUrlPrefix());
         stationsStore.load(function (records, operation, success) {
