@@ -37,8 +37,15 @@ Ext.define('PegelOnline.view.Map', {
     },
 
     onMapRender: function (me, map) {
-        var stationsStore = Ext.create('PegelOnline.store.Stations'),
+        var setMasked     = me.setMasked,
+            stationsStore = Ext.create('PegelOnline.store.Stations'),
             stationsProxy = stationsStore.getProxy();
+
+        setMasked({
+            xtype   : 'loadmask',
+            message : 'Loading map and stations …'
+        });
+
         stationsProxy.setUrl(stationsStore.getUrlPrefix());
         stationsStore.load(function (records, operation, success) {
             var foldCase      = PegelOnline.Utils.foldCase,
@@ -107,21 +114,23 @@ Ext.define('PegelOnline.view.Map', {
                         );
                     }
                 });
+
+                // Falls Standort nicht ermittelbar oder außerhalb des
+                // Datenbereichs, Mitte des Datenbereichs anzeigen:
+                if (
+                    latitude === null  || longitude === null ||
+                    latitude  < minLat || latitude  > maxLat ||
+                    longitude < minLng || longitude > maxLng
+                ) {
+                    me.setMapCenter({
+                        latitude  : (minLat + maxLat) / 2,
+                        longitude : (minLng + maxLng) / 2
+                    });
+                    map.setZoom(map.getZoom() - 1);
+                }
             }
 
-            // Falls Standort nicht ermittelbar oder außerhalb des Datenbereichs,
-            // Mitte des Datenbereichs anzeigen:
-            if (
-                latitude === null  || longitude === null ||
-                latitude  < minLat || latitude  > maxLat ||
-                longitude < minLng || longitude > maxLng
-            ) {
-                me.setMapCenter({
-                    latitude  : (minLat + maxLat) / 2,
-                    longitude : (minLng + maxLng) / 2
-                });
-                map.setZoom(map.getZoom() - 1);
-            }
+            setMasked(false);
         });
     }
 });

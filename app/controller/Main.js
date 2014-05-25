@@ -15,6 +15,7 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         refs: {
+            main                    : 'main',
             tabList                 : 'tabList',
             tabListStations         : 'tabList stations',
             tabListStationsBack     : 'tabList stations #back',
@@ -67,25 +68,31 @@ Ext.define('PegelOnline.controller.Main', {
         var forwardAnim   = this.getAnims().forward,
             longname      = water.get('longname'),
             shortname     = water.get('shortname'),
+            setMasked     = this.getMain().setMasked,
             stations      = this.getTabListStations(),
             stationsStore = stations.getStore(),
             stationsProxy = stationsStore.getProxy(),
             tabList       = this.getTabList(),
-            title;
+            title         = longname;
 
+        if (longname.toLocaleUpperCase() !== shortname.toLocaleUpperCase()) {
+            title += ' (' + shortname + ')';
+        }
+        title = Ext.util.Format.htmlEncode(title);
+
+        setMasked({
+            xtype   : 'loadmask',
+            message : 'Loading stations for ' + title + ' …'
+        });
         stationsProxy.setUrl(
             stationsStore.getUrlPrefix() + '?waters=' + water.get('shortname')
         );
         stationsStore.load(function (records, operation, success) {
+            setMasked(false);
             if (success) {
                 tabList.animateActiveItem(stations, forwardAnim);
             }
-
-            title = longname;
-            if (longname.toLocaleUpperCase() !== shortname.toLocaleUpperCase()) {
-                title += ' (' + shortname + ')';
-            }
-            stations.down('title').setTitle(Ext.util.Format.htmlEncode(title));
+            stations.down('title').setTitle(title);
         });
     },
 
@@ -122,26 +129,35 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     displayMeasurements: function (station, tab, anim, cleanup) {
-        var measurements      = tab.down('measurements'),
+        var htmlEncode        = Ext.util.Format.htmlEncode,
+            measurements      = tab.down('measurements'),
             measurementsStore = measurements.down('chart').getStore(),
             measurementsProxy = measurementsStore.getProxy(),
+            setMasked         = this.getMain().setMasked,
             water             = Ext.create(
-                                    'PegelOnline.model.Water',
-                                    station.get('water')
-                                );
+                                     'PegelOnline.model.Water',
+                                     station.get('water')
+                                 ),
+            escStationName    = htmlEncode(station.get('shortname'));
+            escWaterName      = htmlEncode(water.get('longname'));
 
+        setMasked({
+            xtype   : 'loadmask',
+            message : 'Loading data for ' + escWaterName + ' / ' +
+                      escStationName + ' …'
+        });
         measurementsProxy.setUrl(
             measurementsStore.getUrlPrefix() +
             station.get('uuid')              +
             measurementsStore.getUrlSuffix()
         );
         measurementsStore.load(function (records, operation, success) {
+            setMasked(false);
             if (success) {
                 tab.animateActiveItem(measurements, anim);
                 cleanup && cleanup(water);
                 measurements.down('title').setTitle(
-                    '<small>' + water.get('longname') + '</small> /<br>' +
-                    Ext.util.Format.htmlEncode(station.get('shortname'))
+                    '<small>' + escWaterName + '</small> /<br>' + escStationName
                 );
             }
         });
