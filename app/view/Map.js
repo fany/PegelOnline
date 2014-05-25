@@ -37,13 +37,21 @@ Ext.define('PegelOnline.view.Map', {
     },
 
     onMapRender: function (me, map) {
-        var foldCase      = PegelOnline.Utils.foldCase,
-            infoWindows   = me.getInfoWindows(),
-            maps          = google.maps,
-            stationsStore = Ext.create('PegelOnline.store.Stations'),
+        var stationsStore = Ext.create('PegelOnline.store.Stations'),
             stationsProxy = stationsStore.getProxy();
         stationsProxy.setUrl(stationsStore.getUrlPrefix());
         stationsStore.load(function (records, operation, success) {
+            var foldCase      = PegelOnline.Utils.foldCase,
+                geo           = me.getGeo(),
+                infoWindows   = me.getInfoWindows(),
+                latitude      = geo.getLatitude(),
+                longitude     = geo.getLongitude(),
+                maps          = google.maps,
+                minLat,
+                maxLat,
+                minLng,
+                maxLng;
+
             if (success) {
                 stationsStore.each(function (item) {
                     var station     = item,
@@ -51,7 +59,21 @@ Ext.define('PegelOnline.view.Map', {
                         longitude   = station.get('longitude'),
                         longname    = station.get('longname'),
                         marker;
+
                     if (latitude && longitude) {
+                        if (minLat === undefined || minLat > latitude) {
+                            minLat = latitude;
+                        }
+                        if (maxLat === undefined || maxLat < latitude) {
+                            maxLat = latitude;
+                        }
+                        if (minLng === undefined || minLng > longitude) {
+                            minLng = longitude;
+                        }
+                        if (maxLng === undefined || maxLng < longitude) {
+                            maxLng = longitude;
+                        }
+
                         marker = new maps.Marker({
                             animation : maps.Animation.DROP,
                             position  : new maps.LatLng(latitude, longitude),
@@ -85,6 +107,20 @@ Ext.define('PegelOnline.view.Map', {
                         );
                     }
                 });
+            }
+
+            // Falls Standort nicht ermittelbar oder außerhalb des Datenbereichs,
+            // Mitte des Datenbereichs anzeigen:
+            if (
+                latitude === null  || longitude === null ||
+                latitude  < minLat || latitude  > maxLat ||
+                longitude < minLng || longitude > maxLng
+            ) {
+                me.setMapCenter({
+                    latitude  : (minLat + maxLat) / 2,
+                    longitude : (minLng + maxLng) / 2
+                });
+                map.setZoom(map.getZoom() - 1);
             }
         });
     }
