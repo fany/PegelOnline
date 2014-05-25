@@ -14,14 +14,14 @@ Ext.define('PegelOnline.view.Main', {
 
         items: [
             {
-                iconCls : 'more',
-                title   : 'List',
-                xtype   : 'tabList'
-            },
-            {
                 iconCls : 'maps',
                 title   : 'Map',
                 xtype   : 'tabMap'
+            },
+            {
+                iconCls : 'more',
+                title   : 'List',
+                xtype   : 'tabList'
             },
             {
                 iconCls : 'info',

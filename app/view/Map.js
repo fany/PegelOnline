@@ -10,7 +10,7 @@ Ext.define('PegelOnline.view.Map', {
     ],
 
     config: {
-        mapOptions         : { zoom: 10 },
+        mapOptions         : { zoom: 9 },
         useCurrentLocation : { autoUpdate: false },
 
         items: [
@@ -31,7 +31,9 @@ Ext.define('PegelOnline.view.Map', {
         listeners: {
             maprender : 'onMapRender',
             single    : true
-        }
+        },
+
+        infoWindows: []
     },
 
     onMapRender: function (me, map) {
@@ -41,13 +43,14 @@ Ext.define('PegelOnline.view.Map', {
         stationsStore.load(function (records, operation, success) {
             if (success) {
                 stationsStore.each(function (item) {
-                    var foldCase  = PegelOnline.Utils.foldCase,
-                        latitude  = item.get('latitude'),
-                        longitude = item.get('longitude'),
-                        longname  = item.get('longname'),
-                        maps      = google.maps,
+                    var foldCase    = PegelOnline.Utils.foldCase,
+                        infoWindows = me.getInfoWindows(),
+                        latitude    = item.get('latitude'),
+                        longitude   = item.get('longitude'),
+                        longname    = item.get('longname'),
+                        maps        = google.maps,
                         marker,
-                        station   = item;
+                        station     = item;
                     if (latitude && longitude) {
                         marker = new maps.Marker({
                             position : new maps.LatLng(latitude, longitude),
@@ -58,14 +61,15 @@ Ext.define('PegelOnline.view.Map', {
                             marker,
                             'click',
                             function () {
-                                var infowindow = new maps.InfoWindow({
+                                var infoWindow = new maps.InfoWindow({
                                     content:
                                         '<strong>' + longname + '</strong><br>' +
                                         foldCase(station.get('water').longname) +
                                         ' (@ ' + station.get('km') + ' km)<br>' +
                                         foldCase(station.get('agency'))
                                 });
-                                infowindow.open(map, marker);
+                                infoWindow.open(map, marker);
+                                infoWindows.push(infoWindow);
                             }
                         );
                         maps.event.addListener(
@@ -73,6 +77,9 @@ Ext.define('PegelOnline.view.Map', {
                             'dblclick',
                             function () {
                                 me.fireEvent('disclose', station);
+                                infoWindows.forEach(function (infoWindow) {
+                                    infoWindow.close();
+                                });
                             }
                         );
                     }
