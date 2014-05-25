@@ -147,8 +147,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseWMap: function (list, station) {
-        var backToMap         = this.getTabMapMeasurementsBack(),
-            currentWater      = Ext.create(
+        var currentWater      = Ext.create(
                                     'PegelOnline.model.Water',
                                     station.get('water')
                                 ),
