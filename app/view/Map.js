@@ -53,9 +53,10 @@ Ext.define('PegelOnline.view.Map', {
                         marker;
                     if (latitude && longitude) {
                         marker = new maps.Marker({
-                            position : new maps.LatLng(latitude, longitude),
-                            map      : map,
-                            title    : longname // not suitable for touch devices
+                            animation : maps.Animation.DROP,
+                            position  : new maps.LatLng(latitude, longitude),
+                            map       : map,
+                            title     : longname // not for touch devices
                         });
                         maps.event.addListener(
                             marker,
