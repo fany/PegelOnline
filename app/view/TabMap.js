@@ -10,9 +10,17 @@ Ext.define('PegelOnline.view.TabMap', {
     config   : {
         layout : 'card',
 
-        items: [
+        listeners: {
+            show   : 'onShow',
+            single : true
+        }
+    },
+
+    onShow: function () {
+        // console.log('tabMap: onShow');
+        this.add([
             { xtype : 'wmap' },
             { xtype : 'measurements' }
-        ]
+        ]);
     }
 });
