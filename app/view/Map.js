@@ -37,11 +37,10 @@ Ext.define('PegelOnline.view.Map', {
     },
 
     onMapRender: function (me, map) {
-        var setMasked     = me.setMasked,
-            stationsStore = Ext.create('PegelOnline.store.Stations'),
+        var stationsStore = Ext.create('PegelOnline.store.Stations'),
             stationsProxy = stationsStore.getProxy();
 
-        setMasked({
+        me.setMasked({
             xtype   : 'loadmask',
             message : 'Loading map and stations …'
         });
@@ -138,7 +137,7 @@ Ext.define('PegelOnline.view.Map', {
                 }
             }
 
-            setMasked(false);
+            me.setMasked(false);
         });
     }
 });

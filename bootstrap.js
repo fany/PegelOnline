@@ -743,26 +743,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-<<<<<<< Updated upstream
-  "PegelOnline.view.TabPanel": []
-=======
-  "PegelOnline.Utils": [],
-  "PegelOnline.controller.Main": [],
-  "PegelOnline.model.Measurement": [],
-  "PegelOnline.model.Station": [],
-  "PegelOnline.model.Water": [],
-  "PegelOnline.store.Measurements": [],
-  "PegelOnline.store.Stations": [],
-  "PegelOnline.store.Waters": [],
-  "PegelOnline.view.Main": [],
-  "PegelOnline.view.Map": [],
-  "PegelOnline.view.Measurements": [],
-  "PegelOnline.view.Stations": [],
-  "PegelOnline.view.TabInfo": [],
-  "PegelOnline.view.TabList": [],
-  "PegelOnline.view.TabMap": [],
-  "PegelOnline.view.Waters": []
->>>>>>> Stashed changes
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],

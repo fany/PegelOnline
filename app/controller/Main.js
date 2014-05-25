@@ -67,8 +67,8 @@ Ext.define('PegelOnline.controller.Main', {
         // console.log('onDiscloseWaters');
         var forwardAnim   = this.getAnims().forward,
             longname      = water.get('longname'),
+            main          = this.getMain(),
             shortname     = water.get('shortname'),
-            setMasked     = this.getMain().setMasked,
             stations      = this.getTabListStations(),
             stationsStore = stations.getStore(),
             stationsProxy = stationsStore.getProxy(),
@@ -80,7 +80,7 @@ Ext.define('PegelOnline.controller.Main', {
         }
         title = Ext.util.Format.htmlEncode(title);
 
-        setMasked({
+        main.setMasked({
             xtype   : 'loadmask',
             message : 'Loading stations for ' + title + ' …'
         });
@@ -88,7 +88,7 @@ Ext.define('PegelOnline.controller.Main', {
             stationsStore.getUrlPrefix() + '?waters=' + water.get('shortname')
         );
         stationsStore.load(function (records, operation, success) {
-            setMasked(false);
+            main.setMasked(false);
             if (success) {
                 tabList.animateActiveItem(stations, forwardAnim);
             }
@@ -128,10 +128,10 @@ Ext.define('PegelOnline.controller.Main', {
 
     displayMeasurements: function (station, tab, anim, cleanup) {
         var htmlEncode        = Ext.util.Format.htmlEncode,
+            main              = this.getMain(),
             measurements      = tab.down('measurements'),
             measurementsStore = measurements.down('chart').getStore(),
             measurementsProxy = measurementsStore.getProxy(),
-            setMasked         = this.getMain().setMasked,
             water             = Ext.create(
                                      'PegelOnline.model.Water',
                                      station.get('water')
@@ -139,7 +139,7 @@ Ext.define('PegelOnline.controller.Main', {
             escStationName    = htmlEncode(station.get('shortname'));
             escWaterName      = htmlEncode(water.get('longname'));
 
-        setMasked({
+        main.setMasked({
             xtype   : 'loadmask',
             message : 'Loading data for ' + escWaterName + ' / ' +
                       escStationName + ' …'
@@ -150,7 +150,7 @@ Ext.define('PegelOnline.controller.Main', {
             measurementsStore.getUrlSuffix()
         );
         measurementsStore.load(function (records, operation, success) {
-            setMasked(false);
+            main.setMasked(false);
             if (success) {
                 tab.animateActiveItem(measurements, anim);
                 if (cleanup) {
