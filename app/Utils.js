@@ -20,4 +20,4 @@ namespace.foldCase = function (string) {
                  .replace('Wasserstrasse', 'Wasserstraße')
                  .replace(' Auf ', ' auf ')
                  .replace(' Zur ', ' zur ');
-}
+};

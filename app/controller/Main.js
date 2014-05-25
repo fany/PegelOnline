@@ -110,9 +110,7 @@ Ext.define('PegelOnline.controller.Main', {
                     Ext.util.Format.htmlEncode(
                         waterLong.length > 5 &&
                         waterShort.toLocaleUpperCase() !==
-                         waterLong.toLocaleUpperCase()
-                        ? waterShort
-                        : waterLong
+                         waterLong.toLocaleUpperCase() ? waterShort : waterLong
                     )
                 );
             }
@@ -155,7 +153,9 @@ Ext.define('PegelOnline.controller.Main', {
             setMasked(false);
             if (success) {
                 tab.animateActiveItem(measurements, anim);
-                cleanup && cleanup(water);
+                if (cleanup) {
+                    cleanup(water);
+                }
                 measurements.down('title').setTitle(
                     '<small>' + escWaterName + '</small> /<br>' + escStationName
                 );
