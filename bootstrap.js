@@ -1700,6 +1700,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+<<<<<<< HEAD
   "PegelOnline.Utils": [],
   "PegelOnline.controller.Main": [],
   "PegelOnline.model.Measurement": [],
@@ -1719,6 +1720,31 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "PegelOnline.view.Main": [
     "widget.main"
+=======
+<<<<<<< Updated upstream
+  "PegelOnline.view.TabPanel": [
+    "widget.main"
+=======
+  "PegelOnline.Utils": [],
+  "PegelOnline.controller.Main": [],
+  "PegelOnline.model.Measurement": [],
+  "PegelOnline.model.Station": [],
+  "PegelOnline.model.Water": [],
+  "PegelOnline.store.Measurements": [
+    "store.measurements"
+  ],
+  "PegelOnline.store.Stations": [
+    "store.stations"
+  ],
+  "PegelOnline.store.Waters": [
+    "store.waters"
+  ],
+  "PegelOnline.view.Main": [
+    "widget.main"
+  ],
+  "PegelOnline.view.Map": [
+    "widget.wmap"
+>>>>>>> map
   ],
   "PegelOnline.view.Measurements": [
     "widget.measurements"
@@ -1726,10 +1752,25 @@ Ext.ClassManager.addNameAliasMappings({
   "PegelOnline.view.Stations": [
     "widget.stations"
   ],
+<<<<<<< HEAD
   "PegelOnline.view.TabPanel": [
     "widget.maintabs"
   ],
   "PegelOnline.view.Waters": [
     "widget.waters"
+=======
+  "PegelOnline.view.TabInfo": [
+    "widget.tabInfo"
+  ],
+  "PegelOnline.view.TabList": [
+    "widget.tabList"
+  ],
+  "PegelOnline.view.TabMap": [
+    "widget.tabMap"
+  ],
+  "PegelOnline.view.Waters": [
+    "widget.waters"
+>>>>>>> Stashed changes
+>>>>>>> map
   ]
 });
