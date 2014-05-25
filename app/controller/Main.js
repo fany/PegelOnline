@@ -15,40 +15,23 @@ Ext.define('PegelOnline.controller.Main', {
         },
 
         refs: {
-            stations                : 'stations',
             tabList                 : 'tabList',
-            tabListMeasurementsBack : 'tabList measurements #back',
+            tabListStations         : 'tabList stations',
             tabListStationsBack     : 'tabList stations #back',
+            tabListWaters           : 'tabList waters',
+            tabListMeasurementsBack : 'tabList measurements #back',
             tabMap                  : 'tabMap',
-            tabMapMeasurementsBack  : 'tabMap measurements #back',
-            waters                  : 'waters',
-            wMap                    : 'wmap'
+            tabMapMap               : 'tabMap wmap',
+            tabMapMeasurementsBack  : 'tabMap measurements #back'
         },
 
         control : {
-            tabListMeasurementsBack: {
-                tap      : 'onTapTabListMeasurementsBack'
-            },
-
-            tabListStationsBack: {
-                tap      : 'onTapTabListStationsBack'
-            },
-
-            tabMapMeasurementsBack: {
-                tap      : 'onTapTabMapMeasurementsBack'
-            },
-
-            waters: {
-                disclose : 'onDiscloseWaters'
-            },
-
-            stations: {
-                disclose : 'onDiscloseStations'
-            },
-
-            wMap: {
-                disclose : 'onDiscloseWMap'
-            }
+            tabListWaters           : { disclose: 'onDiscloseWaters' },
+            tabListStations         : { disclose: 'onDiscloseStations' },
+            tabListStationsBack     : { tap: 'onTapTabListStationsBack' },
+            tabListMeasurementsBack : { tap: 'onTapTabListMeasurementsBack' },
+            tabMapMap               : { disclose: 'onDiscloseWMap' },
+            tabMapMeasurementsBack  : { tap: 'onTapTabMapMeasurementsBack' }
         },
 
         views : [ 'Main' ],
@@ -57,7 +40,7 @@ Ext.define('PegelOnline.controller.Main', {
     onTapTabListMeasurementsBack: function () {
         // console.log('onTapTabListMeasurementsBack');
         this.getTabList().animateActiveItem(
-            this.getStations(),
+            this.getTabListStations(),
             this.getAnims().back
         );
     },
@@ -66,7 +49,7 @@ Ext.define('PegelOnline.controller.Main', {
     onTapTabListStationsBack: function () {
         // console.log('onTapTabListStationsBack');
         this.getTabList().animateActiveItem(
-            this.getWaters(),
+            this.getTabListWaters(),
             this.getAnims().back
         );
     },
@@ -74,7 +57,7 @@ Ext.define('PegelOnline.controller.Main', {
     onTapTabMapMeasurementsBack: function () {
         // console.log('onTapTabMapMeasurementsBack');
         this.getTabMap().animateActiveItem(
-            this.getWMap(),
+            this.getTabMapMap(),
             this.getAnims().cover
         );
     },
@@ -84,7 +67,7 @@ Ext.define('PegelOnline.controller.Main', {
         var forwardAnim   = this.getAnims().forward,
             longname      = water.get('longname'),
             shortname     = water.get('shortname'),
-            stations      = this.getStations(),
+            stations      = this.getTabListStations(),
             stationsStore = stations.getStore(),
             stationsProxy = stationsStore.getProxy(),
             tabList       = this.getTabList(),
