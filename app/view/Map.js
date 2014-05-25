@@ -37,20 +37,20 @@ Ext.define('PegelOnline.view.Map', {
     },
 
     onMapRender: function (me, map) {
-        var stationsStore = Ext.create('PegelOnline.store.Stations'),
+        var foldCase      = PegelOnline.Utils.foldCase,
+            infoWindows   = me.getInfoWindows(),
+            maps          = google.maps,
+            stationsStore = Ext.create('PegelOnline.store.Stations'),
             stationsProxy = stationsStore.getProxy();
         stationsProxy.setUrl(stationsStore.getUrlPrefix());
         stationsStore.load(function (records, operation, success) {
             if (success) {
                 stationsStore.each(function (item) {
-                    var foldCase    = PegelOnline.Utils.foldCase,
-                        infoWindows = me.getInfoWindows(),
-                        latitude    = item.get('latitude'),
-                        longitude   = item.get('longitude'),
-                        longname    = item.get('longname'),
-                        maps        = google.maps,
-                        marker,
-                        station     = item;
+                    var station     = item,
+                        latitude    = station.get('latitude'),
+                        longitude   = station.get('longitude'),
+                        longname    = station.get('longname'),
+                        marker;
                     if (latitude && longitude) {
                         marker = new maps.Marker({
                             position : new maps.LatLng(latitude, longitude),
