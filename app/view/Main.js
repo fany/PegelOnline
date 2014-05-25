@@ -1,64 +1,33 @@
 Ext.define('PegelOnline.view.Main', {
-    extend   : 'Ext.Container',
-    xtype    : 'main',
+    extend : 'Ext.tab.Panel',
+    xtype  : 'main',
 
     requires : [
-        'Ext.Title',
-        'Ext.Toolbar',
-        'PegelOnline.view.Measurements',
-        'PegelOnline.view.Stations',
-        'PegelOnline.view.Waters'
+        'PegelOnline.view.TabInfo',
+        'PegelOnline.view.TabList',
+        'PegelOnline.view.TabMap'
     ],
 
-    config   : {
-        layout     : 'card',
+    config: {
+        tabBarPosition : 'bottom',
+        layout         : { animation: 'flip' },
 
-        items : [
+        items: [
             {
-                xtype  : 'waters'
+                iconCls : 'more',
+                title   : 'List',
+                xtype   : 'tabList'
             },
             {
-                xtype  : 'stations'
+                iconCls : 'maps',
+                title   : 'Map',
+                xtype   : 'tabMap'
             },
             {
-                xtype  : 'measurements'
-            },
-            {
-                docked : 'top',
-                xtype  : 'toolbar',
-
-                items: [
-                    {
-                        xtype  : 'title',
-                        id     : 'title',
-
-                        style: {
-                            'line-height' : '1em',
-                            'text-align'  : 'left'
-                        }
-                    },
-                    {
-                        id     : 'back',
-                        text   : 'Waters',
-                        ui     : 'back',
-                        zIndex : 42,
-                        right  : 0,
-                        hidden : true
-                    }
-                ]
+                iconCls : 'info',
+                title   : 'Info',
+                xtype   : 'tabInfo'
             }
-        ],
-
-        prevTitle : null
-    },
-
-    restoreTitle: function () {
-        return this.setTitle(this.getPrevTitle());
-    },
-
-    setTitle: function (title) {
-        var titlebar = this.down('#title');
-        this.setPrevTitle(titlebar.getTitle());
-        return titlebar.setTitle(title);
+        ]
     }
 });
