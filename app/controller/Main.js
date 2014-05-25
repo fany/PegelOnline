@@ -8,8 +8,10 @@ Ext.define('PegelOnline.controller.Main', {
 
     config : {
         anims : {
-            back    : { type: 'slide', direction: 'right' },
-            forward : { type: 'slide', direction: 'left'  }
+            cover   : { type: 'cover',  direction: 'up'    },
+            back    : { type: 'slide',  direction: 'right' },
+            forward : { type: 'slide',  direction: 'left'  },
+            reveal  : { type: 'reveal', direction: 'down'  }
         },
 
         refs: {
@@ -24,7 +26,7 @@ Ext.define('PegelOnline.controller.Main', {
             tabMapMeasurementsBack   : 'tabMap measurements #back',
             tabMapMeasurementsChart  : 'tabMap measurements chart',
             waters                   : 'waters',
-            wmap                     : 'wmap'
+            wMap                     : 'wmap'
         },
 
         control : {
@@ -37,7 +39,7 @@ Ext.define('PegelOnline.controller.Main', {
             },
 
             tabMapMeasurementsBack: {
-                tap      : 'onTapMapMeasurementsBack'
+                tap      : 'onTapTabMapMeasurementsBack'
             },
 
             waters: {
@@ -48,7 +50,7 @@ Ext.define('PegelOnline.controller.Main', {
                 disclose : 'onDiscloseStations'
             },
 
-            wmap: {
+            wMap: {
                 disclose : 'onDiscloseWMap'
             }
         },
@@ -59,14 +61,16 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onTapTabListMeasurementsBack: function () {
+        // console.log('onTapTabListMeasurementsBack');
         this.getTabList().animateActiveItem(
             this.getStations(),
-            'pop'
+            this.getAnims().back
         );
     },
 
 
     onTapTabListStationsBack: function () {
+        // console.log('onTapTabListStationsBack');
         this.getTabList().animateActiveItem(
             this.getWaters(),
             this.getAnims().back
@@ -74,13 +78,15 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onTapTabMapMeasurementsBack: function () {
+        // console.log('onTapTabMapMeasurementsBack');
         this.getTabMap().animateActiveItem(
             this.getWMap(),
-            this.getAnims().back
+            this.getAnims().cover
         );
     },
 
     onDiscloseWaters: function (list, water) {
+        // console.log('onDiscloseWaters');
         var forwardAnim   = this.getAnims().forward,
             longname      = water.get('longname'),
             shortname     = water.get('shortname'),
@@ -109,6 +115,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseStations: function (list, station) {
+        // console.log('onDiscloseStations');
         var backToStations    = this.getTabListMeasurementsBack(),
             currentWater      = this.getCurrentWater(),
             currentWaterLong  = currentWater.get('longname'),
@@ -147,6 +154,7 @@ Ext.define('PegelOnline.controller.Main', {
     },
 
     onDiscloseWMap: function (list, station) {
+        // console.log('onDiscloseWMap');
         var currentWater      = Ext.create(
                                     'PegelOnline.model.Water',
                                     station.get('water')
@@ -156,6 +164,7 @@ Ext.define('PegelOnline.controller.Main', {
             measurements      = this.getMeasurements(),
             measurementsStore = this.getTabMapMeasurementsChart().getStore(),
             measurementsProxy = measurementsStore.getProxy(),
+            revealAnim        = this.getAnims().reveal,
             tabMap            = this.getTabMap();
 
         measurementsProxy.setUrl(
@@ -165,7 +174,7 @@ Ext.define('PegelOnline.controller.Main', {
         );
         measurementsStore.load(function (records, operation, success) {
             if (success) {
-                tabMap.animateActiveItem(measurements, 'pop');
+                tabMap.animateActiveItem(measurements, revealAnim);
                 measurements.down('title').setTitle(
                     '<small>' + currentWaterLong + '</small> /<br>' +
                     htmlEncode(station.get('shortname'))
