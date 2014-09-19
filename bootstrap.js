@@ -751,11 +751,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "PegelOnline.store.Measurements": [],
   "PegelOnline.store.Stations": [],
   "PegelOnline.store.Waters": [],
-  "PegelOnline.view.Help": [],
   "PegelOnline.view.Main": [],
+  "PegelOnline.view.Map": [],
   "PegelOnline.view.Measurements": [],
   "PegelOnline.view.Stations": [],
-  "PegelOnline.view.TabPanel": [],
+  "PegelOnline.view.TabInfo": [],
+  "PegelOnline.view.TabList": [],
+  "PegelOnline.view.TabMap": [],
   "PegelOnline.view.Waters": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1700,31 +1702,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
-<<<<<<< HEAD
-  "PegelOnline.Utils": [],
-  "PegelOnline.controller.Main": [],
-  "PegelOnline.model.Measurement": [],
-  "PegelOnline.model.Station": [],
-  "PegelOnline.model.Water": [],
-  "PegelOnline.store.Measurements": [
-    "store.measurements"
-  ],
-  "PegelOnline.store.Stations": [
-    "store.stations"
-  ],
-  "PegelOnline.store.Waters": [
-    "store.waters"
-  ],
-  "PegelOnline.view.Help": [
-    "widget.help"
-  ],
-  "PegelOnline.view.Main": [
-    "widget.main"
-=======
-<<<<<<< Updated upstream
-  "PegelOnline.view.TabPanel": [
-    "widget.main"
-=======
   "PegelOnline.Utils": [],
   "PegelOnline.controller.Main": [],
   "PegelOnline.model.Measurement": [],
@@ -1744,7 +1721,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "PegelOnline.view.Map": [
     "widget.wmap"
->>>>>>> map
   ],
   "PegelOnline.view.Measurements": [
     "widget.measurements"
@@ -1752,13 +1728,6 @@ Ext.ClassManager.addNameAliasMappings({
   "PegelOnline.view.Stations": [
     "widget.stations"
   ],
-<<<<<<< HEAD
-  "PegelOnline.view.TabPanel": [
-    "widget.maintabs"
-  ],
-  "PegelOnline.view.Waters": [
-    "widget.waters"
-=======
   "PegelOnline.view.TabInfo": [
     "widget.tabInfo"
   ],
@@ -1770,7 +1739,5 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "PegelOnline.view.Waters": [
     "widget.waters"
->>>>>>> Stashed changes
->>>>>>> map
   ]
 });
