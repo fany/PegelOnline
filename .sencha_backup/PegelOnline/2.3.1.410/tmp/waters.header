@@ -1,0 +1,16 @@
+200 OK
+Cache-Control: no-transform, must-revalidate, proxy-revalidate, max-age=14
+Connection: close
+Date: Thu, 24 Apr 2014 21:27:45 GMT
+ETag: "98a323e6288a0aa730be7d5f8986aad6e499438503e30045b00adab3a6187f4b"
+Server: Apache
+Vary: Accept-Encoding
+Content-Length: 6368
+Content-Type: application/json;charset=UTF-8
+Expires: Thu, 24 Apr 2014 21:28:00 GMT
+Access-Control-Allow-Origin: *
+Client-Date: Thu, 24 Apr 2014 21:27:45 GMT
+Client-Peer: 195.37.165.79:80
+Client-Response-Num: 1
+Set-Cookie: pegelonlineSP=3807956317.1.4087472480.1379375616; path=/
+

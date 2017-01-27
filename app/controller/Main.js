@@ -35,7 +35,7 @@ Ext.define('PegelOnline.controller.Main', {
             tabMapMeasurementsBack  : { tap: 'onTapTabMapMeasurementsBack' }
         },
 
-        views : [ 'Main' ],
+        views : [ 'Main' ]
     },
 
     onTapTabListMeasurementsBack: function () {
